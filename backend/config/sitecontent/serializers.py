@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import About, ContactInfo
+from .models import About, ContactInfo, HeroBackground
 
 class AboutSerializer(serializers.ModelSerializer):
     image_url = serializers.SerializerMethodField()
@@ -23,3 +23,19 @@ class ContactInfoSerializer(serializers.ModelSerializer):
         fields = ['id', 'address', 'phone', 'email', 'working_hours', 
                   'facebook', 'instagram', 'twitter', 'updated_at']
         read_only_fields = ['updated_at']
+
+class HeroBackgroundSerializer(serializers.ModelSerializer):
+    image_url = serializers.SerializerMethodField()
+    
+    class Meta:
+        model = HeroBackground
+        fields = ['id', 'name', 'image', 'image_url', 'is_active', 'is_preset', 'created_at']
+        read_only_fields = ['created_at']
+    
+    def get_image_url(self, obj):
+        if obj.image:
+            request = self.context.get('request')
+            if request:
+                return request.build_absolute_uri(obj.image.url)
+            return obj.image.url
+        return None

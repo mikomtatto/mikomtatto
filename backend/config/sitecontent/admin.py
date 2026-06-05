@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import About, ContactInfo
+from .models import About, ContactInfo, HeroBackground
 
 @admin.register(About)
 class AboutAdmin(admin.ModelAdmin):
@@ -23,3 +23,14 @@ class ContactInfoAdmin(admin.ModelAdmin):
         }),
     )
     readonly_fields = ['updated_at']
+
+@admin.register(HeroBackground)
+class HeroBackgroundAdmin(admin.ModelAdmin):
+    list_display = ['name', 'is_active', 'is_preset', 'created_at']
+    list_filter = ['is_active', 'is_preset']
+    fieldsets = (
+        ('Arka Plan Bilgileri', {
+            'fields': ('name', 'image', 'is_active', 'is_preset')
+        }),
+    )
+    readonly_fields = ['created_at']

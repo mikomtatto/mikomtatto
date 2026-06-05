@@ -1,13 +1,44 @@
+import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import axios from 'axios'
 
 const Hero = () => {
+  const [heroBackground, setHeroBackground] = useState(null)
+
+  useEffect(() => {
+    fetchHeroBackground()
+  }, [])
+
+  const fetchHeroBackground = async () => {
+    try {
+      const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000'
+      const response = await axios.get(`${API_URL}/api/site/hero-backgrounds/?is_active=true`)
+      if (response.data && response.data.length > 0) {
+        setHeroBackground(response.data[0])
+      }
+    } catch (error) {
+      console.error('Hero background yüklenirken hata:', error)
+    }
+  }
+
   return (
     <section className="relative min-h-[80vh] sm:min-h-screen flex items-center justify-center overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-br from-darker via-dark to-black"></div>
-      <div className="absolute inset-0 opacity-20">
-        <div className="absolute top-10 left-10 w-48 h-48 sm:w-72 sm:h-72 lg:w-96 lg:h-96 bg-accent rounded-full filter blur-3xl"></div>
-        <div className="absolute bottom-10 right-10 w-64 h-64 sm:w-80 sm:h-80 lg:w-96 lg:h-96 bg-gray-700 rounded-full filter blur-3xl"></div>
-      </div>
+      {heroBackground && heroBackground.image_url ? (
+        <div 
+          className="absolute inset-0 bg-cover bg-center"
+          style={{ backgroundImage: `url(${heroBackground.image_url})` }}
+        >
+          <div className="absolute inset-0 bg-gradient-to-br from-darker/90 via-dark/80 to-black/90"></div>
+        </div>
+      ) : (
+        <>
+          <div className="absolute inset-0 bg-gradient-to-br from-darker via-dark to-black"></div>
+          <div className="absolute inset-0 opacity-20">
+            <div className="absolute top-10 left-10 w-48 h-48 sm:w-72 sm:h-72 lg:w-96 lg:h-96 bg-accent rounded-full filter blur-3xl"></div>
+            <div className="absolute bottom-10 right-10 w-64 h-64 sm:w-80 sm:h-80 lg:w-96 lg:h-96 bg-gray-700 rounded-full filter blur-3xl"></div>
+          </div>
+        </>
+      )}
       
       <div className="relative z-10 text-center px-4 max-w-5xl mx-auto">
         <h1 className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold mb-4 sm:mb-6">
