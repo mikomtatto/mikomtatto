@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom'
+
 const Hero = () => {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
@@ -16,12 +18,12 @@ const Hero = () => {
           Profesyonel dövme sanat stüdyosu. Her dövme bir sanat eseridir.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <a href="/booking" className="btn-primary text-lg">
+          <Link to="/booking" className="btn-primary text-lg">
             Randevu Al
-          </a>
-          <a href="/gallery" className="btn-secondary text-lg">
+          </Link>
+          <Link to="/gallery" className="btn-secondary text-lg">
             Galeriyi İncele
-          </a>
+          </Link>
         </div>
       </div>
 

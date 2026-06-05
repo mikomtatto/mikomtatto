@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
 import About from './components/About'
@@ -12,6 +12,8 @@ import Footer from './components/Footer'
 import AdminPanel from './components/AdminPanel'
 
 function App() {
+  const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000'
+  
   return (
     <Router>
       <div className="min-h-screen bg-darker">
@@ -33,6 +35,7 @@ function App() {
           <Route path="/styles/:id" element={<StyleDetail />} />
           <Route path="/booking" element={<Booking />} />
           <Route path="/admin" element={<AdminPanel />} />
+          <Route path="/django-admin" element={<Navigate to={`${API_URL}/admin`} replace />} />
         </Routes>
         <Footer />
       </div>
