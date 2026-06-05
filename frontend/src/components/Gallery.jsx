@@ -50,7 +50,7 @@ useEffect(() => {
 
   const featuredImages = images.filter(img => img.is_featured)
   const displayImages = isHorizontal ? featuredImages : images
-  console.log('Gallery state:', { loading, imagesCount: images.length, displayImagesCount: displayImages.length, isHorizontal, firstImage: displayImages[0] })
+  console.log('Gallery render:', { loading, imagesCount: images.length, displayImagesCount: displayImages.length, isHorizontal })
   return (
     <section id="gallery" className="py-16 sm:py-20 md:py-24 px-4 bg-gradient-to-b from-darker to-dark">
       <div className="max-w-7xl mx-auto">
@@ -161,7 +161,6 @@ useEffect(() => {
           </div>
         ) : (
           <>
-            {console.log('Rendering grid with', displayImages.length, 'images')}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
             {displayImages.map((image) => (
               <Link key={image.id} to={`/gallery/${image.id}`} className="group relative">
@@ -208,7 +207,6 @@ useEffect(() => {
               </Link>
             ))}
           </div>
-          </>
         )}
       </div>
     </section>
