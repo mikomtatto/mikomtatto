@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
+import HeroBackgroundManager from './HeroBackgroundManager'
 
 const AdminPanel = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false)
@@ -169,6 +170,7 @@ const AdminPanel = () => {
     { id: 'appointments', label: 'Randevular', icon: '📅' },
     { id: 'gallery', label: 'Galeri', icon: '📷' },
     { id: 'styles', label: 'Stiller', icon: '🎨' },
+    { id: 'hero', label: 'Hero Arka Plan', icon: '🖼️' },
     { id: 'about', label: 'Hakkımızda', icon: 'ℹ️' },
     { id: 'contact', label: 'İletişim', icon: '📞' },
   ]
@@ -362,6 +364,10 @@ const AdminPanel = () => {
                   </div>
                 )}
               </div>
+            )}
+
+            {activeTab === 'hero' && (
+              <HeroBackgroundManager />
             )}
 
             {activeTab === 'about' && (
