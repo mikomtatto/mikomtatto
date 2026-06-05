@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 
 const useScrollAnimation = () => {
-  const [isVisible, setIsVisible] = useState(false)
+  const [isVisible, setIsVisible] = useState(true)
   const ref = useRef(null)
 
   useEffect(() => {

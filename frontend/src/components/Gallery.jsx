@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
+import useScrollAnimation from '../hooks/useScrollAnimation'
 
 const Gallery = ({ isHorizontal = false }) => {
   const [images, setImages] = useState([])
@@ -8,6 +9,7 @@ const Gallery = ({ isHorizontal = false }) => {
   const [filter, setFilter] = useState('all')
   const [showArrows, setShowArrows] = useState(false)
   const scrollContainerRef = useRef(null)
+  const [sectionRef, isVisible] = useScrollAnimation()
 
   useEffect(() => {
     fetchImages()
