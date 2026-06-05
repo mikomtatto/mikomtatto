@@ -50,7 +50,7 @@ const Contact = () => {
   }
 
   return (
-    <section id="contact" className="py-16 sm:py-20 px-4 bg-dark">
+    <section ref={sectionRef} id="contact" className={`py-16 sm:py-20 px-4 bg-dark transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'}`}>
       <div className="max-w-7xl mx-auto">
         <h2 className="section-title text-center">İletişim</h2>
         <p className="section-subtitle text-center">
