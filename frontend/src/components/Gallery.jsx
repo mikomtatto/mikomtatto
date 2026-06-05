@@ -160,7 +160,9 @@ useEffect(() => {
             )}
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
+          <>
+            {console.log('Rendering grid with', displayImages.length, 'images')}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
             {displayImages.map((image) => (
               <Link key={image.id} to={`/gallery/${image.id}`} className="group relative">
                 <div className="relative overflow-hidden rounded-xl sm:rounded-2xl bg-gray-900 border border-gray-800 hover:border-accent/50 transition-all duration-500 cursor-pointer">
