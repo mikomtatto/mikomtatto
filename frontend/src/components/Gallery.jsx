@@ -48,7 +48,7 @@ useEffect(() => {
   }
 
   const featuredImages = images.filter(img => img.is_featured)
-  const displayImages = filter === 'featured' ? featuredImages : images
+  const displayImages = isHorizontal ? featuredImages : images
   return (
     <section id="gallery" className="py-16 sm:py-20 md:py-24 px-4 bg-gradient-to-b from-darker to-dark">
       <div className="max-w-7xl mx-auto">
