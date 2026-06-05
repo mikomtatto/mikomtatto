@@ -1,0 +1,15 @@
+[Unit]
+Description=MikomTattoo Django Gunicorn Service
+After=network.target
+
+[Service]
+User=www-data
+Group=www-data
+WorkingDirectory=/var/www/mikomtatto/backend
+Environment="PATH=/var/www/mikomtatto/backend/venv/bin"
+ExecStart=/var/www/mikomtatto/backend/venv/bin/gunicorn config.wsgi:application --config gunicorn_config.py
+ExecReload=/bin/kill -s HUP $MAINPID
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
