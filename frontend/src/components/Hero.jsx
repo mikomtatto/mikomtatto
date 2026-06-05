@@ -22,7 +22,7 @@ const Hero = () => {
   }
 
   return (
-    <section className="relative min-h-[80vh] sm:min-h-screen flex items-center justify-center overflow-hidden">
+    <section className="relative min-h-[80vh] sm:min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-darker via-dark to-black">
       {heroBackground && heroBackground.image_url ? (
         <div 
           className="absolute inset-0 bg-cover bg-center"
@@ -31,13 +31,10 @@ const Hero = () => {
           <div className="absolute inset-0 bg-gradient-to-br from-darker/90 via-dark/80 to-black/90"></div>
         </div>
       ) : (
-        <>
-          <div className="absolute inset-0 bg-gradient-to-br from-darker via-dark to-black"></div>
-          <div className="absolute inset-0 opacity-20">
-            <div className="absolute top-10 left-10 w-48 h-48 sm:w-72 sm:h-72 lg:w-96 lg:h-96 bg-accent rounded-full filter blur-3xl"></div>
-            <div className="absolute bottom-10 right-10 w-64 h-64 sm:w-80 sm:h-80 lg:w-96 lg:h-96 bg-gray-700 rounded-full filter blur-3xl"></div>
-          </div>
-        </>
+        <div className="absolute inset-0 opacity-20">
+          <div className="absolute top-10 left-10 w-48 h-48 sm:w-72 sm:h-72 lg:w-96 lg:h-96 bg-accent rounded-full filter blur-3xl"></div>
+          <div className="absolute bottom-10 right-10 w-64 h-64 sm:w-80 sm:h-80 lg:w-96 lg:h-96 bg-gray-700 rounded-full filter blur-3xl"></div>
+        </div>
       )}
       
       <div className="relative z-10 text-center px-4 max-w-5xl mx-auto">
