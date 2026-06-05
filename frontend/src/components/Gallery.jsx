@@ -206,6 +206,7 @@ useEffect(() => {
               </Link>
             ))}
           </div>
+          </>
         )}
       </div>
     </section>
