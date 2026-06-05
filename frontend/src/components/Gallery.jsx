@@ -50,7 +50,7 @@ useEffect(() => {
 
   const featuredImages = images.filter(img => img.is_featured)
   const displayImages = isHorizontal ? featuredImages : images
-  console.log('Gallery state:', { loading, imagesCount: images.length, displayImagesCount: displayImages.length, isHorizontal })
+  console.log('Gallery state:', { loading, imagesCount: images.length, displayImagesCount: displayImages.length, isHorizontal, firstImage: displayImages[0] })
   return (
     <section id="gallery" className="py-16 sm:py-20 md:py-24 px-4 bg-gradient-to-b from-darker to-dark">
       <div className="max-w-7xl mx-auto">
@@ -84,6 +84,7 @@ useEffect(() => {
           <div className="text-center text-gray-400 py-16 sm:py-20">
             <div className="text-4xl sm:text-5xl md:text-6xl mb-4">📷</div>
             <p className="text-base sm:text-lg md:text-xl">Henüz fotoğraf yüklenmemiş.</p>
+            <p className="text-xs text-gray-500 mt-2">Images: {images.length}, Featured: {featuredImages.length}, Display: {displayImages.length}</p>
           </div>
         ) : isHorizontal ? (
           <div className="relative">
