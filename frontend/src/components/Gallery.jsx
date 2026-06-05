@@ -52,7 +52,7 @@ useEffect(() => {
   const displayImages = filter === 'featured' ? featuredImages : images
 
   return (
-    <section id="gallery" className="py-16 sm:py-20 md:py-24 px-4 bg-gradient-to-b from-darker to-dark">
+    <section ref={sectionRef} id="gallery" className={`py-16 sm:py-20 md:py-24 px-4 bg-gradient-to-b from-darker to-dark transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-12 sm:mb-16">
           <h2 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-3 sm:mb-4">

@@ -72,7 +72,7 @@ const Booking = () => {
 
   if (success) {
     return (
-      <section id="booking" className="py-16 sm:py-20 md:py-24 px-4 bg-gradient-to-b from-dark to-darker">
+      <section ref={sectionRef} id="booking" className="py-16 sm:py-20 md:py-24 px-4 bg-gradient-to-b from-dark to-darker">
         <div className="max-w-2xl mx-auto text-center">
           <div className="bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-xl sm:rounded-2xl p-6 sm:p-8 md:p-12 shadow-2xl">
             <div className="w-16 h-16 sm:w-20 sm:h-20 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-4 sm:mb-6">
@@ -95,7 +95,7 @@ const Booking = () => {
   }
 
   return (
-    <section id="booking" className="py-16 sm:py-20 md:py-24 px-4 bg-gradient-to-b from-dark to-darker">
+    <section ref={sectionRef} id="booking" className={`py-16 sm:py-20 md:py-24 px-4 bg-gradient-to-b from-dark to-darker transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
       <div className="max-w-3xl mx-auto">
         <div className="text-center mb-12 sm:mb-16">
           <h2 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-3 sm:mb-4">
