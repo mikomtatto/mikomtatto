@@ -23,7 +23,8 @@ const AdminPanel = () => {
     setLoginError('')
     
     try {
-      const response = await axios.post('/api/appointments/admin-login/', {
+      const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000'
+      const response = await axios.post(`${API_URL}/api/appointments/admin-login/`, {
         username,
         password
       })
@@ -49,12 +50,13 @@ const AdminPanel = () => {
   const fetchData = async () => {
     setLoading(true)
     try {
+      const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000'
       const [appointments, gallery, styles, about, contact] = await Promise.all([
-        axios.get('/api/appointments/'),
-        axios.get('/api/gallery/'),
-        axios.get('/api/styles/'),
-        axios.get('/api/site/about/'),
-        axios.get('/api/site/contact/')
+        axios.get(`${API_URL}/api/appointments/`),
+        axios.get(`${API_URL}/api/gallery/`),
+        axios.get(`${API_URL}/api/styles/`),
+        axios.get(`${API_URL}/api/site/about/`),
+        axios.get(`${API_URL}/api/site/contact/`)
       ])
       
       setData({

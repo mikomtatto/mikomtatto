@@ -29,7 +29,8 @@ const Booking = () => {
 
   const fetchStyles = async () => {
     try {
-      const response = await axios.get('/api/styles/?active=true')
+      const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000'
+      const response = await axios.get(`${API_URL}/api/styles/?active=true`)
       setStyles(response.data)
     } catch (error) {
       console.error('Stiller yüklenirken hata:', error)
@@ -42,7 +43,8 @@ const Booking = () => {
     setError('')
 
     try {
-      await axios.post('/api/appointments/', formData)
+      const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000'
+      await axios.post(`${API_URL}/api/appointments/`, formData)
       setSuccess(true)
       setFormData({
         name: '',

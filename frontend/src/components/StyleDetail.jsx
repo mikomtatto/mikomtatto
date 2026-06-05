@@ -23,9 +23,10 @@ const StyleDetail = () => {
 
   const fetchData = async () => {
     try {
+      const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000'
       const [styleRes, commentsRes] = await Promise.all([
-        axios.get(`/api/styles/${id}/`),
-        axios.get(`/api/gallery/comments/?content_type=tattoostyle&object_id=${id}`)
+        axios.get(`${API_URL}/api/styles/${id}/`),
+        axios.get(`${API_URL}/api/gallery/comments/?content_type=tattoostyle&object_id=${id}`)
       ])
       setStyle(styleRes.data)
       setComments(commentsRes.data)
@@ -61,7 +62,8 @@ const StyleDetail = () => {
     setSubmitting(true)
 
     try {
-      await axios.post('/api/gallery/comments/', {
+      const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000'
+      await axios.post(`${API_URL}/api/gallery/comments/`, {
         ...commentForm,
         content_type: 'tattoostyle',
         object_id: parseInt(id)

@@ -22,9 +22,10 @@ const GalleryDetail = () => {
 
   const fetchData = async () => {
     try {
+      const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000'
       const [imageRes, commentsRes] = await Promise.all([
-        axios.get(`/api/gallery/images/${id}/`),
-        axios.get(`/api/gallery/comments/?content_type=galleryimage&object_id=${id}`)
+        axios.get(`${API_URL}/api/gallery/images/${id}/`),
+        axios.get(`${API_URL}/api/gallery/comments/?content_type=galleryimage&object_id=${id}`)
       ])
       setImage(imageRes.data)
       setComments(commentsRes.data)
@@ -56,7 +57,8 @@ const GalleryDetail = () => {
     setSubmitting(true)
 
     try {
-      await axios.post('/api/gallery/comments/', {
+      const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000'
+      await axios.post(`${API_URL}/api/gallery/comments/`, {
         ...commentForm,
         content_type: 'galleryimage',
         object_id: parseInt(id)

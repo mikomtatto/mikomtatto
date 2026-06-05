@@ -28,7 +28,8 @@ useEffect(() => {
   
   const fetchImages = async () => {
     try {
-      const response = await axios.get('/api/gallery/images/')
+      const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000'
+      const response = await axios.get(`${API_URL}/api/gallery/images/`)
       setImages(response.data)
     } catch (error) {
       console.error('Galeri yüklenirken hata:', error)
