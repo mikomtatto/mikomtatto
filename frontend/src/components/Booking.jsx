@@ -95,7 +95,7 @@ const Booking = () => {
   }
 
   return (
-    <section ref={sectionRef} id="booking" className={`py-16 sm:py-20 md:py-24 px-4 bg-gradient-to-b from-dark to-darker transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'}`}>
+    <section id="booking" className="py-16 sm:py-20 md:py-24 px-4 bg-gradient-to-b from-dark to-darker">
       <div className="max-w-3xl mx-auto">
         <div className="text-center mb-12 sm:mb-16">
           <h2 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-3 sm:mb-4">
