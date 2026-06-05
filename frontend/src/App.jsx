@@ -22,8 +22,8 @@ function App() {
           <Route path="/" element={
             <>
               <Hero />
-              <Gallery isHorizontal={true} />
-              <Styles isHorizontal={true} />
+              <Gallery />
+              <Styles />
               <Booking />
               <Contact />
             </>
