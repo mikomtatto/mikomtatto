@@ -6,7 +6,6 @@ import useScrollAnimation from '../hooks/useScrollAnimation'
 const Gallery = ({ isHorizontal = false }) => {
   const [images, setImages] = useState([])
   const [loading, setLoading] = useState(true)
-  const [filter, setFilter] = useState('all')
   const [showArrows, setShowArrows] = useState(false)
   const scrollContainerRef = useRef(null)
   const [sectionRef, isVisible] = useScrollAnimation()
@@ -52,7 +51,7 @@ useEffect(() => {
 
   const featuredImages = images.filter(img => img.is_featured)
   const displayImages = filter === 'featured' ? featuredImages : images
-
+sHoizontl
   return (
     <section ref={sectionRef} id="gallery" className={`py-16 sm:py-20 md:py-24 px-4 bg-gradient-to-b from-darker to-dark transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
       <div className="max-w-7xl mx-auto">
@@ -66,27 +65,16 @@ useEffect(() => {
           </p>
         </div>
 
-        <div className="flex justify-center gap-2 sm:gap-3 mb-8 sm:mb-12">
-          <button 
-            onClick={() => setFilter('all')}
-            className={`px-4 sm:px-6 py-2 sm:py-3 rounded-full transition-all duration-300 font-medium text-sm sm:text-base ${
-              filter === 'all' 
-                ? 'bg-accent text-black shadow-lg shadow-accent/20' 
-                : 'bg-gray-800/50 text-gray-300 hover:bg-gray-700/50 border border-gray-700'
-            }`}
+        <div className="text-center mb-8 sm:mb-12">
+          <Link 
+            to="/gallery" 
+            className="inline-flex items-center gap-2 text-accent hover:text-white transition-colors duration-300 text-sm sm:text-base font-medium group"
           >
-            Tümü
-          </button>
-          <button 
-            onClick={() => setFilter('featured')}
-            className={`px-4 sm:px-6 py-2 sm:py-3 rounded-full transition-all duration-300 font-medium text-sm sm:text-base ${
-              filter === 'featured' 
-                ? 'bg-accent text-black shadow-lg shadow-accent/20' 
-                : 'bg-gray-800/50 text-gray-300 hover:bg-gray-700/50 border border-gray-700'
-            }`}
-          >
-            Öne Çıkanlar
-          </button>
+            Tümünü Gör
+            <svg className="w-4 h-4 sm:w-5 sm:h-5 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
+          </Link>
         </div>
 
         {loading ? (
