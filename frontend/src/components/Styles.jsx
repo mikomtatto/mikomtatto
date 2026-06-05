@@ -1,14 +1,12 @@
 import { useState, useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
-import useScrollAnimation from '../hooks/useScrollAnimation'
 
 const Styles = ({ isHorizontal = false }) => {
   const [styles, setStyles] = useState([])
   const [loading, setLoading] = useState(true)
   const [showArrows, setShowArrows] = useState(false)
   const scrollContainerRef = useRef(null)
-  const [sectionRef, isVisible] = useScrollAnimation()
 
   useEffect(() => {
     fetchStyles()
@@ -50,7 +48,7 @@ useEffect(() => {
   }
 
   return (
-    <section ref={sectionRef} id="styles" className={`py-16 sm:py-20 md:py-24 px-4 bg-gradient-to-b from-dark to-darker transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+    <section id="styles" className="py-16 sm:py-20 md:py-24 px-4 bg-gradient-to-b from-dark to-darker">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-12 sm:mb-16">
           <h2 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-3 sm:mb-4">
