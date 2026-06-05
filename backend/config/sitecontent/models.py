@@ -29,3 +29,22 @@ class ContactInfo(models.Model):
 
     def __str__(self):
         return self.email
+
+class HeroBackground(models.Model):
+    name = models.CharField(max_length=100, verbose_name='Arka Plan Adı')
+    image = models.ImageField(upload_to='hero_backgrounds/', verbose_name='Arka Plan Görseli')
+    is_active = models.BooleanField(default=False, verbose_name='Aktif')
+    is_preset = models.BooleanField(default=False, verbose_name='Hazır Arka Plan')
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name='Oluşturma Tarihi')
+
+    class Meta:
+        verbose_name = 'Hero Arka Planı'
+        verbose_name_plural = 'Hero Arka Planları'
+
+    def __str__(self):
+        return self.name
+
+    def save(self, *args, **kwargs):
+        if self.is_active:
+            HeroBackground.objects.filter(is_active=True).update(is_active=False)
+        super().save(*args, **kwargs)
