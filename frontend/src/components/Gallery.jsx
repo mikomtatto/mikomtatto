@@ -52,22 +52,22 @@ useEffect(() => {
   const displayImages = filter === 'featured' ? featuredImages : images
 
   return (
-    <section id="gallery" className="py-24 px-4 bg-gradient-to-b from-darker to-dark">
+    <section id="gallery" className="py-16 sm:py-20 md:py-24 px-4 bg-gradient-to-b from-darker to-dark">
       <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-16">
-          <h2 className="font-display text-5xl md:text-6xl font-bold mb-4">
+        <div className="text-center mb-12 sm:mb-16">
+          <h2 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-3 sm:mb-4">
             <span className="text-white">Galeri</span>
             <span className="text-accent">.</span>
           </h2>
-          <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+          <p className="text-gray-400 text-sm sm:text-base md:text-lg max-w-2xl mx-auto px-2">
             Sanat eserlerimizi inceleyin, her dövme bir hikaye anlatır
           </p>
         </div>
 
-        <div className="flex justify-center gap-3 mb-12">
+        <div className="flex justify-center gap-2 sm:gap-3 mb-8 sm:mb-12">
           <button 
             onClick={() => setFilter('all')}
-            className={`px-6 py-3 rounded-full transition-all duration-300 font-medium ${
+            className={`px-4 sm:px-6 py-2 sm:py-3 rounded-full transition-all duration-300 font-medium text-sm sm:text-base ${
               filter === 'all' 
                 ? 'bg-accent text-black shadow-lg shadow-accent/20' 
                 : 'bg-gray-800/50 text-gray-300 hover:bg-gray-700/50 border border-gray-700'
@@ -77,7 +77,7 @@ useEffect(() => {
           </button>
           <button 
             onClick={() => setFilter('featured')}
-            className={`px-6 py-3 rounded-full transition-all duration-300 font-medium ${
+            className={`px-4 sm:px-6 py-2 sm:py-3 rounded-full transition-all duration-300 font-medium text-sm sm:text-base ${
               filter === 'featured' 
                 ? 'bg-accent text-black shadow-lg shadow-accent/20' 
                 : 'bg-gray-800/50 text-gray-300 hover:bg-gray-700/50 border border-gray-700'
@@ -88,22 +88,22 @@ useEffect(() => {
         </div>
 
         {loading ? (
-          <div className="text-center text-gray-400 py-20">
-            <div className="inline-block animate-spin rounded-full h-12 w-12 border-4 border-accent border-t-transparent"></div>
+          <div className="text-center text-gray-400 py-16 sm:py-20">
+            <div className="inline-block animate-spin rounded-full h-10 w-10 sm:h-12 sm:w-12 border-4 border-accent border-t-transparent"></div>
           </div>
         ) : displayImages.length === 0 ? (
-          <div className="text-center text-gray-400 py-20">
-            <div className="text-6xl mb-4">📷</div>
-            <p className="text-xl">Henüz fotoğraf yüklenmemiş.</p>
+          <div className="text-center text-gray-400 py-16 sm:py-20">
+            <div className="text-4xl sm:text-5xl md:text-6xl mb-4">📷</div>
+            <p className="text-base sm:text-lg md:text-xl">Henüz fotoğraf yüklenmemiş.</p>
           </div>
         ) : isHorizontal ? (
           <div className="relative">
             {showArrows && (
               <button
                 onClick={() => scroll('left')}
-                className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-gray-900/80 backdrop-blur-sm border border-gray-700 hover:border-accent text-white p-3 rounded-full shadow-lg transition-all hover:bg-accent hover:text-black"
+                className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-gray-900/80 backdrop-blur-sm border border-gray-700 hover:border-accent text-white p-2 sm:p-3 rounded-full shadow-lg transition-all hover:bg-accent hover:text-black"
               >
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
                 </svg>
               </button>
@@ -111,12 +111,12 @@ useEffect(() => {
             
             <div
               ref={scrollContainerRef}
-              className="flex gap-6 overflow-x-auto pb-4 px-12 scroll-smooth scrollbar-hide"
+              className="flex gap-4 sm:gap-6 overflow-x-auto pb-4 px-8 sm:px-12 scroll-smooth scrollbar-hide"
               style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
             >
               {displayImages.map((image) => (
-                <Link key={image.id} to={`/gallery/${image.id}`} className="group relative flex-shrink-0 w-80">
-                  <div className="relative overflow-hidden rounded-2xl bg-gray-900 border border-gray-800 hover:border-accent/50 transition-all duration-500 cursor-pointer">
+                <Link key={image.id} to={`/gallery/${image.id}`} className="group relative flex-shrink-0 w-64 sm:w-80">
+                  <div className="relative overflow-hidden rounded-xl sm:rounded-2xl bg-gray-900 border border-gray-800 hover:border-accent/50 transition-all duration-500 cursor-pointer">
                     <div className="aspect-[4/5] overflow-hidden">
                       <img 
                         src={image.image_url} 
@@ -130,19 +130,19 @@ useEffect(() => {
                     
                     {/* Overlay */}
                     <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                      <div className="absolute bottom-0 left-0 right-0 p-6 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                      <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-6 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
                         {image.is_featured && (
-                          <div className="inline-flex items-center gap-2 bg-accent text-black px-3 py-1 rounded-full text-xs font-bold mb-3">
+                          <div className="inline-flex items-center gap-2 bg-accent text-black px-2 sm:px-3 py-1 rounded-full text-xs font-bold mb-2 sm:mb-3">
                             <span className="w-2 h-2 bg-black rounded-full animate-pulse"></span>
                             ÖNE ÇIKAN
                           </div>
                         )}
-                        <h3 className="font-display text-2xl font-bold text-white mb-2">{image.title}</h3>
+                        <h3 className="font-display text-lg sm:text-xl md:text-2xl font-bold text-white mb-1 sm:mb-2">{image.title}</h3>
                         {image.style_name && (
-                          <p className="text-accent font-medium mb-2">{image.style_name}</p>
+                          <p className="text-accent font-medium mb-1 sm:mb-2 text-sm sm:text-base">{image.style_name}</p>
                         )}
                         {image.description && (
-                          <p className="text-gray-300 text-sm line-clamp-2">{image.description}</p>
+                          <p className="text-gray-300 text-xs sm:text-sm line-clamp-2">{image.description}</p>
                         )}
                       </div>
                     </div>
@@ -161,19 +161,19 @@ useEffect(() => {
             {showArrows && (
               <button
                 onClick={() => scroll('right')}
-                className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-gray-900/80 backdrop-blur-sm border border-gray-700 hover:border-accent text-white p-3 rounded-full shadow-lg transition-all hover:bg-accent hover:text-black"
+                className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-gray-900/80 backdrop-blur-sm border border-gray-700 hover:border-accent text-white p-2 sm:p-3 rounded-full shadow-lg transition-all hover:bg-accent hover:text-black"
               >
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                 </svg>
               </button>
             )}
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
             {displayImages.map((image) => (
               <Link key={image.id} to={`/gallery/${image.id}`} className="group relative">
-                <div className="relative overflow-hidden rounded-2xl bg-gray-900 border border-gray-800 hover:border-accent/50 transition-all duration-500 cursor-pointer">
+                <div className="relative overflow-hidden rounded-xl sm:rounded-2xl bg-gray-900 border border-gray-800 hover:border-accent/50 transition-all duration-500 cursor-pointer">
                   <div className="aspect-[4/5] overflow-hidden">
                     <img 
                       src={image.image_url} 
@@ -187,26 +187,26 @@ useEffect(() => {
                   
                   {/* Overlay */}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                    <div className="absolute bottom-0 left-0 right-0 p-6 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                    <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-6 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
                       {image.is_featured && (
-                        <div className="inline-flex items-center gap-2 bg-accent text-black px-3 py-1 rounded-full text-xs font-bold mb-3">
+                        <div className="inline-flex items-center gap-2 bg-accent text-black px-2 sm:px-3 py-1 rounded-full text-xs font-bold mb-2 sm:mb-3">
                           <span className="w-2 h-2 bg-black rounded-full animate-pulse"></span>
                           ÖNE ÇIKAN
                         </div>
                       )}
-                      <h3 className="font-display text-2xl font-bold text-white mb-2">{image.title}</h3>
+                      <h3 className="font-display text-lg sm:text-xl md:text-2xl font-bold text-white mb-1 sm:mb-2">{image.title}</h3>
                       {image.style_name && (
-                        <p className="text-accent font-medium mb-2">{image.style_name}</p>
+                        <p className="text-accent font-medium mb-1 sm:mb-2 text-sm sm:text-base">{image.style_name}</p>
                       )}
                       {image.description && (
-                        <p className="text-gray-300 text-sm line-clamp-2">{image.description}</p>
+                        <p className="text-gray-300 text-xs sm:text-sm line-clamp-2">{image.description}</p>
                       )}
                     </div>
                   </div>
 
                   {/* Featured badge on image */}
                   {image.is_featured && (
-                    <div className="absolute top-4 right-4 bg-accent/90 backdrop-blur-sm text-black px-3 py-1.5 rounded-full text-xs font-bold shadow-lg">
+                    <div className="absolute top-3 sm:top-4 right-3 sm:right-4 bg-accent/90 backdrop-blur-sm text-black px-2 sm:px-3 py-1 sm:py-1.5 rounded-full text-xs font-bold shadow-lg">
                       ★ ÖNE ÇIKAN
                     </div>
                   )}
