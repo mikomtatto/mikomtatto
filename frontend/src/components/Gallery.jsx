@@ -170,8 +170,10 @@ useEffect(() => {
                       alt={image.title}
                       className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                       onError={(e) => {
+                        console.error('Image load error:', image.image_url, e)
                         e.target.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="400" height="500"%3E%3Crect fill="%231a1a1a" width="400" height="500"/%3E%3Ctext fill="%23666" font-family="sans-serif" font-size="20" x="50%25" y="50%25" text-anchor="middle" dy=".3em"%3EGörsel Yüklenemedi%3C/text%3E%3C/svg%3E'
                       }}
+                      onLoad={() => console.log('Image loaded:', image.image_url)}
                     />
                   </div>
                   
