@@ -29,6 +29,7 @@ useEffect(() => {
     try {
       const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000'
       const response = await axios.get(`${API_URL}/api/gallery/images/`)
+      console.log('Gallery images response:', response.data)
       setImages(response.data)
     } catch (error) {
       console.error('Galeri yüklenirken hata:', error)
@@ -49,6 +50,7 @@ useEffect(() => {
 
   const featuredImages = images.filter(img => img.is_featured)
   const displayImages = isHorizontal ? featuredImages : images
+  console.log('Gallery state:', { loading, imagesCount: images.length, displayImagesCount: displayImages.length, isHorizontal })
   return (
     <section id="gallery" className="py-16 sm:py-20 md:py-24 px-4 bg-gradient-to-b from-darker to-dark">
       <div className="max-w-7xl mx-auto">
