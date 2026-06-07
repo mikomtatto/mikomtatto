@@ -334,7 +334,7 @@ const AdminPanel = () => {
               <div>
                 <div className="flex justify-between items-center mb-6">
                   <h2 className="font-display text-2xl font-bold">Dövme Stilleri</h2>
-                  <a href="http://localhost:8000/admin/" target="_blank" className="text-accent hover:underline text-sm flex items-center gap-1">
+                  <a href={`${import.meta.env.VITE_API_URL || 'http://localhost:8000'}/admin/styles/style/`} target="_blank" rel="noopener noreferrer" className="text-accent hover:underline text-sm flex items-center gap-1">
                     Yeni stil eklemek için Django admin →
                   </a>
                 </div>
@@ -378,7 +378,7 @@ const AdminPanel = () => {
               <div>
                 <div className="flex justify-between items-center mb-6">
                   <h2 className="font-display text-2xl font-bold">Hakkımızda</h2>
-                  <a href="http://localhost:8000/admin/" target="_blank" className="text-accent hover:underline text-sm flex items-center gap-1">
+                  <a href={`${import.meta.env.VITE_API_URL || 'http://localhost:8000'}/admin/styles/style/`} target="_blank" rel="noopener noreferrer" className="text-accent hover:underline text-sm flex items-center gap-1">
                     Düzenlemek için Django admin →
                   </a>
                 </div>
@@ -405,7 +405,7 @@ const AdminPanel = () => {
               <div>
                 <div className="flex justify-between items-center mb-6">
                   <h2 className="font-display text-2xl font-bold">İletişim Bilgileri</h2>
-                  <a href="http://localhost:8000/admin/" target="_blank" className="text-accent hover:underline text-sm flex items-center gap-1">
+                  <a href={`${import.meta.env.VITE_API_URL || 'http://localhost:8000'}/admin/styles/style/`} target="_blank" rel="noopener noreferrer" className="text-accent hover:underline text-sm flex items-center gap-1">
                     Düzenlemek için Django admin →
                   </a>
                 </div>

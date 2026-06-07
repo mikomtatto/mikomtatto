@@ -23,7 +23,7 @@ const Navbar = () => {
         <div className="flex items-center justify-between h-16 sm:h-20">
           <Link to="/" className="font-display text-xl sm:text-2xl font-bold">
             <span className="text-white">Mikom</span>
-            <span className="text-accent">Tattoo</span>
+            <span className="text-accent">Tatto</span>
           </Link>
           
           <div className="hidden md:flex items-center space-x-6 sm:space-x-8">
