@@ -31,7 +31,7 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/gallery" element={<Gallery hideViewAll={true} />} />
           <Route path="/gallery/:id" element={<GalleryDetail />} />
-          <Route path="/styles" element={<Styles />} />
+          <Route path="/styles" element={<Styles isHorizontal={false} />} />
           <Route path="/styles/:id" element={<StyleDetail />} />
           <Route path="/booking" element={<Booking />} />
           <Route path="/admin" element={<AdminPanel />} />
