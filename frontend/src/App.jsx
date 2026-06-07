@@ -22,14 +22,14 @@ function App() {
           <Route path="/" element={
             <>
               <Hero />
-              <Gallery />
-              <Styles />
+              <Gallery isHorizontal={true} />
+              <Styles isHorizontal={true} />
               <Booking />
               <Contact />
             </>
           } />
           <Route path="/about" element={<About />} />
-          <Route path="/gallery" element={<Gallery hideViewAll={true} />} />
+          <Route path="/gallery" element={<Gallery isHorizontal={false} hideViewAll={true} />} />
           <Route path="/gallery/:id" element={<GalleryDetail />} />
           <Route path="/styles" element={<Styles isHorizontal={false} />} />
           <Route path="/styles/:id" element={<StyleDetail />} />
