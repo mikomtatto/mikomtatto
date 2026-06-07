@@ -5,7 +5,7 @@ from cloudinary.models import CloudinaryField
 
 class GalleryImage(models.Model):
     title = models.CharField(max_length=200, verbose_name='Başlık')
-    image = CloudinaryField('image', folder='gallery/', verbose_name='Fotoğraf')
+    image = CloudinaryField('image', folder='gallery/')
     style = models.ForeignKey('styles.TattooStyle', on_delete=models.SET_NULL, null=True, blank=True, verbose_name='Dövme Stili')
     description = models.TextField(blank=True, verbose_name='Açıklama')
     is_featured = models.BooleanField(default=False, verbose_name='Öne Çıkan')
