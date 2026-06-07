@@ -284,7 +284,7 @@ const AdminPanel = () => {
               <div>
                 <div className="flex justify-between items-center mb-6">
                   <h2 className="font-display text-2xl font-bold">Galeri</h2>
-                  <a href={`${import.meta.env.VITE_API_URL || 'http://localhost:8000'}/admin/`} target="_blank" className="text-accent hover:underline text-sm flex items-center gap-1">
+                  <a href={`${import.meta.env.VITE_API_URL || 'http://localhost:8000'}/admin/`} target="_blank" rel="noopener noreferrer" className="text-accent hover:underline text-sm flex items-center gap-1">
                     Yeni fotoğraf eklemek için Django admin →
                   </a>
                 </div>
@@ -295,7 +295,7 @@ const AdminPanel = () => {
                   </div>
                 ) : (
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {data.gallery?.map(item => (
+                    {Array.isArray(data.gallery) && data.gallery.map(item => (
                       <div key={item.id} className="bg-gray-800/50 border border-gray-700 rounded-xl overflow-hidden hover:border-accent/50 transition-all group">
                         {item.image_url && (
                           <div className="aspect-[4/5] overflow-hidden">
