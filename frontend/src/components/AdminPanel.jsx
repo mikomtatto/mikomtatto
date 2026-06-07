@@ -77,6 +77,8 @@ const AdminPanel = () => {
   }
 
   const updateAppointmentStatus = async (id, status) => {
+    if (!confirm('Randevu durumunu güncellemek istediğinize emin misiniz?')) return
+    
     try {
       const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000'
       await axios.patch(`${API_URL}/api/appointments/${id}/`, { status })
@@ -92,7 +94,8 @@ const AdminPanel = () => {
     
     try {
       const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000'
-      await axios.delete(`${API_URL}/api/${type}/${id}/`)
+      const endpoint = type === 'gallery' ? `${API_URL}/api/gallery/images/${id}/` : `${API_URL}/api/${type}/${id}/`
+      await axios.delete(endpoint)
       fetchData()
     } catch (error) {
       console.error('Silme hatası:', error)
