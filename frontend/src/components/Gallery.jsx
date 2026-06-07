@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
 
-const Gallery = ({ isHorizontal = false }) => {
+const Gallery = ({ isHorizontal = false, hideViewAll = false }) => {
   const [images, setImages] = useState([])
   const [loading, setLoading] = useState(true)
   const [showArrows, setShowArrows] = useState(false)
@@ -64,17 +64,19 @@ useEffect(() => {
           </p>
         </div>
 
-        <div className="text-center mb-8 sm:mb-12">
-          <Link 
-            to="/gallery" 
-            className="inline-flex items-center gap-2 text-accent hover:text-white transition-colors duration-300 text-sm sm:text-base font-medium group"
-          >
-            Tümünü Gör
-            <svg className="w-4 h-4 sm:w-5 sm:h-5 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-            </svg>
-          </Link>
-        </div>
+        {!hideViewAll && (
+          <div className="text-center mb-8 sm:mb-12">
+            <Link 
+              to="/gallery" 
+              className="inline-flex items-center gap-2 text-accent hover:text-white transition-colors duration-300 text-sm sm:text-base font-medium group"
+            >
+              Tümünü Gör
+              <svg className="w-4 h-4 sm:w-5 sm:h-5 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </Link>
+          </div>
+        )}
 
         {loading ? (
           <div className="text-center text-gray-400 py-16 sm:py-20">

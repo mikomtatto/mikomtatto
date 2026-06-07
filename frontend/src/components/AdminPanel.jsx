@@ -284,7 +284,7 @@ const AdminPanel = () => {
               <div>
                 <div className="flex justify-between items-center mb-6">
                   <h2 className="font-display text-2xl font-bold">Galeri</h2>
-                  <a href="http://localhost:8000/admin/" target="_blank" className="text-accent hover:underline text-sm flex items-center gap-1">
+                  <a href={`${import.meta.env.VITE_API_URL || 'http://localhost:8000'}/admin/`} target="_blank" className="text-accent hover:underline text-sm flex items-center gap-1">
                     Yeni fotoğraf eklemek için Django admin →
                   </a>
                 </div>
@@ -299,7 +299,9 @@ const AdminPanel = () => {
                       <div key={item.id} className="bg-gray-800/50 border border-gray-700 rounded-xl overflow-hidden hover:border-accent/50 transition-all group">
                         {item.image_url && (
                           <div className="aspect-[4/5] overflow-hidden">
-                            <img src={item.image_url} alt={item.title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
+                            <img src={item.image_url} alt={item.title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" onError={(e) => {
+                              e.target.style.display = 'none'
+                            }} />
                           </div>
                         )}
                         <div className="p-4">
