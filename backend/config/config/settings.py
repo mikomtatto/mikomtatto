@@ -15,7 +15,9 @@ import os
 import dj_database_url
 from dotenv import load_dotenv
 
-load_dotenv()
+# Only load .env in development
+if os.getenv('RAILWAY_ENVIRONMENT') is None and os.getenv('RENDER') is None:
+    load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -156,6 +158,11 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 import cloudinary
 import cloudinary.uploader
 import cloudinary.api
+
+# Debug: Print environment variables
+print(f"CLOUDINARY_CLOUD_NAME: {os.getenv('CLOUDINARY_CLOUD_NAME')}")
+print(f"CLOUDINARY_API_KEY: {os.getenv('CLOUDINARY_API_KEY')}")
+print(f"CLOUDINARY_API_SECRET: {os.getenv('CLOUDINARY_API_SECRET')}")
 
 cloudinary.config(
     cloud_name=os.getenv('CLOUDINARY_CLOUD_NAME'),
