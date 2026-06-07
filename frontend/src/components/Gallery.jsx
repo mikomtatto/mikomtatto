@@ -49,7 +49,7 @@ useEffect(() => {
   }
 
   const featuredImages = images.filter(img => img.is_featured)
-  const displayImages = isHorizontal ? featuredImages : images
+  const displayImages = images
   console.log('Gallery render:', { loading, imagesCount: images.length, displayImagesCount: displayImages.length, isHorizontal })
   return (
     <section id="gallery" className="pt-24 sm:pt-28 md:pt-32 pb-16 sm:py-20 md:py-24 px-4 bg-gradient-to-b from-darker to-dark">
