@@ -78,7 +78,8 @@ const AdminPanel = () => {
 
   const updateAppointmentStatus = async (id, status) => {
     try {
-      await axios.patch(`/api/appointments/${id}/`, { status })
+      const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000'
+      await axios.patch(`${API_URL}/api/appointments/${id}/`, { status })
       fetchData()
     } catch (error) {
       console.error('Randevu güncellenirken hata:', error)
@@ -90,7 +91,8 @@ const AdminPanel = () => {
     if (!confirm('Bu öğeyi silmek istediğinize emin misiniz?')) return
     
     try {
-      await axios.delete(`/api/${type}/${id}/`)
+      const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000'
+      await axios.delete(`${API_URL}/api/${type}/${id}/`)
       fetchData()
     } catch (error) {
       console.error('Silme hatası:', error)

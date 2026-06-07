@@ -7,6 +7,7 @@ from .serializers import AppointmentSerializer
 class AppointmentViewSet(viewsets.ModelViewSet):
     queryset = Appointment.objects.all()
     serializer_class = AppointmentSerializer
+    http_method_names = ['get', 'post', 'put', 'patch', 'delete', 'head', 'options']
     
     def get_queryset(self):
         queryset = Appointment.objects.all()
