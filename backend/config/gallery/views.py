@@ -8,6 +8,7 @@ from .serializers import GalleryImageSerializer, CommentSerializer
 class GalleryImageViewSet(viewsets.ModelViewSet):
     queryset = GalleryImage.objects.all()
     serializer_class = GalleryImageSerializer
+    http_method_names = ['get', 'post', 'put', 'patch', 'delete', 'head', 'options']
     
     def get_queryset(self):
         queryset = GalleryImage.objects.all()

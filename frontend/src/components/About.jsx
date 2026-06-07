@@ -35,7 +35,7 @@ const About = () => {
 
   if (loading) {
     return (
-      <section id="about" className="py-20 px-4">
+      <section id="about" className="pt-24 sm:pt-28 md:pt-32 pb-20 px-4">
         <div className="max-w-7xl mx-auto text-center">
           <div className="text-gray-400">Yükleniyor...</div>
         </div>
@@ -45,7 +45,7 @@ const About = () => {
 
   if (!about) {
     return (
-      <section id="about" className="py-20 px-4">
+      <section id="about" className="pt-24 sm:pt-28 md:pt-32 pb-20 px-4">
         <div className="max-w-7xl mx-auto">
           <h2 className="section-title text-center">Hakkımızda</h2>
           <p className="section-subtitle text-center">

@@ -52,7 +52,7 @@ useEffect(() => {
   const displayImages = isHorizontal ? featuredImages : images
   console.log('Gallery render:', { loading, imagesCount: images.length, displayImagesCount: displayImages.length, isHorizontal })
   return (
-    <section id="gallery" className="py-16 sm:py-20 md:py-24 px-4 bg-gradient-to-b from-darker to-dark">
+    <section id="gallery" className="pt-24 sm:pt-28 md:pt-32 pb-16 sm:py-20 md:py-24 px-4 bg-gradient-to-b from-darker to-dark">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-12 sm:mb-16">
           <h2 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-3 sm:mb-4">
