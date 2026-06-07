@@ -52,14 +52,16 @@ const AdminPanel = () => {
     setLoading(true)
     try {
       const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000'
+      console.log('AdminPanel fetching from:', API_URL)
       const [appointments, gallery, styles, about, contact] = await Promise.all([
         axios.get(`${API_URL}/api/appointments/`),
-        axios.get(`${API_URL}/api/gallery/`),
+        axios.get(`${API_URL}/api/gallery/images/`),
         axios.get(`${API_URL}/api/styles/`),
         axios.get(`${API_URL}/api/site/about/`),
         axios.get(`${API_URL}/api/site/contact/`)
       ])
       
+      console.log('Gallery data:', gallery.data)
       setData({
         appointments: appointments.data,
         gallery: gallery.data,
@@ -284,7 +286,7 @@ const AdminPanel = () => {
               <div>
                 <div className="flex justify-between items-center mb-6">
                   <h2 className="font-display text-2xl font-bold">Galeri</h2>
-                  <a href={`${import.meta.env.VITE_API_URL || 'http://localhost:8000'}/admin/`} target="_blank" rel="noopener noreferrer" className="text-accent hover:underline text-sm flex items-center gap-1">
+                  <a href={`${import.meta.env.VITE_API_URL || 'http://localhost:8000'}/admin/gallery/image/`} target="_blank" rel="noopener noreferrer" className="text-accent hover:underline text-sm flex items-center gap-1">
                     Yeni fotoğraf eklemek için Django admin →
                   </a>
                 </div>
