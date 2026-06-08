@@ -162,7 +162,7 @@ useEffect(() => {
             )}
           </div>
         ) : (
-          <div className="flex sm:grid flex-nowrap sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8 overflow-x-auto sm:overflow-visible pb-4 sm:pb-0 px-4 sm:px-0 scroll-smooth sm:scroll-auto" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8 pb-4 sm:pb-0 px-4 sm:px-0">
             {displayImages.map((image) => (
               <Link key={image.id} to={`/gallery/${image.id}`} className="group relative w-full">
                 <div className="relative overflow-hidden rounded-xl sm:rounded-2xl bg-gray-900 border border-gray-800 hover:border-accent/50 transition-all duration-500 cursor-pointer">
