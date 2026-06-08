@@ -2,6 +2,80 @@ import { useState, useEffect } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import axios from 'axios'
 
+const StyleSelector = ({ styles, selectedStyle, onSelect }) => {
+  const [isOpen, setIsOpen] = useState(false)
+
+  return (
+    <div className="relative">
+      <button
+        type="button"
+        onClick={() => setIsOpen(!isOpen)}
+        className="w-full bg-gray-800/50 border border-gray-700 rounded-xl px-3 sm:px-4 py-2 sm:py-3 text-white focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/20 transition-all text-sm sm:text-base text-left flex items-center justify-between"
+      >
+        <span className="flex items-center gap-3">
+          {selectedStyle ? (
+            <>
+              {selectedStyle.image_url && (
+                <img
+                  src={selectedStyle.image_url}
+                  alt={selectedStyle.name}
+                  className="w-8 h-8 sm:w-10 sm:h-10 object-cover rounded-lg"
+                  onError={(e) => {
+                    e.target.style.display = 'none'
+                  }}
+                />
+              )}
+              <span>{selectedStyle.name}</span>
+            </>
+          ) : (
+            <span className="text-gray-500">Stil Seçin</span>
+          )}
+        </span>
+        <svg className={`w-4 h-4 sm:w-5 sm:h-5 transition-transform ${isOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+        </svg>
+      </button>
+
+      {isOpen && (
+        <div className="absolute z-50 w-full mt-2 bg-gray-900 border border-gray-700 rounded-xl shadow-xl max-h-64 overflow-y-auto">
+          {styles.map((style) => (
+            <button
+              key={style.id}
+              type="button"
+              onClick={() => {
+                onSelect(style)
+                setIsOpen(false)
+              }}
+              className={`w-full px-3 sm:px-4 py-2 sm:py-3 text-left flex items-center gap-3 hover:bg-gray-800 transition-colors text-sm sm:text-base ${selectedStyle?.id === style.id ? 'bg-gray-800 border-l-2 border-accent' : ''}`}
+            >
+              {style.image_url ? (
+                <img
+                  src={style.image_url}
+                  alt={style.name}
+                  className="w-8 h-8 sm:w-10 sm:h-10 object-cover rounded-lg flex-shrink-0"
+                  onError={(e) => {
+                    e.target.style.display = 'none'
+                  }}
+                />
+              ) : (
+                <div className="w-8 h-8 sm:w-10 sm:h-10 bg-gray-800 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <span className="text-gray-600 text-xs sm:text-sm">🎨</span>
+                </div>
+              )}
+              <div className="flex-1 min-w-0">
+                <div className="font-medium text-white truncate">{style.name}</div>
+                {style.price_range && (
+                  <div className="text-xs text-accent truncate">{style.price_range}</div>
+                )}
+              </div>
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+  )
+}
+
 const Booking = () => {
   const [searchParams] = useSearchParams()
   const [formData, setFormData] = useState({
@@ -10,7 +84,7 @@ const Booking = () => {
     email: '',
     date: '',
     time: '',
-    style: '',
+    style: null,
     description: ''
   })
   const [styles, setStyles] = useState([])
@@ -37,6 +111,10 @@ const Booking = () => {
     }
   }
 
+  const handleStyleSelect = (style) => {
+    setFormData(prev => ({ ...prev, style: style.id }))
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault()
     setLoading(true)
@@ -52,7 +130,7 @@ const Booking = () => {
         email: '',
         date: '',
         time: '',
-        style: '',
+        style: null,
         description: ''
       })
     } catch (error) {
@@ -194,19 +272,11 @@ const Booking = () => {
               <label className="block text-gray-300 mb-2 sm:mb-3 font-medium flex items-center gap-2 text-sm sm:text-base">
                 <span className="text-accent">🎨</span> Dövme Stili
               </label>
-              <select
-                name="style"
-                value={formData.style}
-                onChange={handleChange}
-                className="w-full bg-gray-800/50 border border-gray-700 rounded-xl px-3 sm:px-4 py-2 sm:py-3 text-white focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/20 transition-all text-sm sm:text-base"
-              >
-                <option value="">Stil Seçin</option>
-                {styles.map((style) => (
-                  <option key={style.id} value={style.id}>
-                    {style.name}
-                  </option>
-                ))}
-              </select>
+              <StyleSelector
+                styles={styles}
+                selectedStyle={styles.find(s => s.id === formData.style)}
+                onSelect={handleStyleSelect}
+              />
             </div>
 
             <div>
