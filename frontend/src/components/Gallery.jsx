@@ -130,14 +130,8 @@ useEffect(() => {
                           </div>
                         )}
                         <h3 className="font-display text-lg sm:text-xl md:text-2xl font-bold text-white mb-1 sm:mb-2">{image.title}</h3>
-                        {image.style && (
-                          <Link 
-                            to={`/styles/${image.style}`}
-                            className="inline-block text-accent font-medium mb-1 sm:mb-2 text-sm sm:text-base px-3 py-1 border border-accent rounded-full hover:bg-accent hover:text-black transition-all duration-300"
-                            onClick={(e) => e.stopPropagation()}
-                          >
-                            {image.style_name}
-                          </Link>
+                        {image.style_name && (
+                          <p className="text-accent font-medium mb-1 sm:mb-2 text-sm sm:text-base">{image.style_name}</p>
                         )}
                         {image.description && (
                           <p className="text-gray-300 text-xs sm:text-sm line-clamp-2">{image.description}</p>
@@ -195,14 +189,8 @@ useEffect(() => {
                         </div>
                       )}
                       <h3 className="font-display text-lg sm:text-xl md:text-2xl font-bold text-white mb-1 sm:mb-2">{image.title}</h3>
-                      {image.style && (
-                        <Link 
-                          to={`/styles/${image.style}`}
-                          className="inline-block text-accent font-medium mb-1 sm:mb-2 text-sm sm:text-base px-3 py-1 border border-accent rounded-full hover:bg-accent hover:text-black transition-all duration-300"
-                          onClick={(e) => e.stopPropagation()}
-                        >
-                          {image.style_name}
-                        </Link>
+                      {image.style_name && (
+                        <p className="text-accent font-medium mb-1 sm:mb-2 text-sm sm:text-base">{image.style_name}</p>
                       )}
                       {image.description && (
                         <p className="text-gray-300 text-xs sm:text-sm line-clamp-2">{image.description}</p>

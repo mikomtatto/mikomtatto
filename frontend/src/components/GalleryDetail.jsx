@@ -131,8 +131,13 @@ const GalleryDetail = () => {
             
             <h1 className="font-display text-4xl font-bold text-white mb-4">{image.title}</h1>
             
-            {image.style_name && (
-              <p className="text-accent font-semibold mb-4">{image.style_name}</p>
+            {image.style && (
+              <Link 
+                to={`/styles/${image.style}`}
+                className="inline-block text-accent font-semibold mb-4 px-4 py-2 border border-accent rounded-full hover:bg-accent hover:text-black transition-all duration-300"
+              >
+                {image.style_name}
+              </Link>
             )}
             
             {image.description && (
