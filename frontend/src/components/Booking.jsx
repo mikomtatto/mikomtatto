@@ -94,12 +94,18 @@ const Booking = () => {
 
   useEffect(() => {
     fetchStyles()
-    // Check for pre-selected style from URL
-    const preSelectedStyle = searchParams.get('style')
-    if (preSelectedStyle) {
-      setFormData(prev => ({ ...prev, style: preSelectedStyle }))
+  }, [])
+
+  useEffect(() => {
+    // Check for pre-selected style from URL after styles are loaded
+    const preSelectedStyleId = searchParams.get('style')
+    if (preSelectedStyleId && styles.length > 0) {
+      const matchedStyle = styles.find(s => s.id === parseInt(preSelectedStyleId))
+      if (matchedStyle) {
+        setFormData(prev => ({ ...prev, style: matchedStyle.id }))
+      }
     }
-  }, [searchParams])
+  }, [searchParams, styles])
 
   const fetchStyles = async () => {
     try {
@@ -112,7 +118,7 @@ const Booking = () => {
   }
 
   const handleStyleSelect = (style) => {
-    setFormData(prev => ({ ...prev, style: style.id }))
+    setFormData(prev => ({ ...prev, style: style }))
   }
 
   const handleSubmit = async (e) => {
