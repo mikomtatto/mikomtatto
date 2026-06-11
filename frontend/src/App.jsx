@@ -12,8 +12,6 @@ import Footer from './components/Footer'
 import AdminPanel from './components/AdminPanel'
 
 function App() {
-  const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000'
-  
   return (
     <Router>
       <div className="min-h-screen bg-darker">
@@ -31,7 +29,7 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/gallery" element={<Gallery isHorizontal={false} hideViewAll={true} />} />
           <Route path="/gallery/:id" element={<GalleryDetail />} />
-          <Route path="/styles" element={<Styles isHorizontal={false} />} />
+          <Route path="/styles" element={<Styles isHorizontal={false} hideViewAll={true} />} />
           <Route path="/styles/:id" element={<StyleDetail />} />
           <Route path="/booking" element={<Booking />} />
           <Route path="/admin" element={<AdminPanel />} />
