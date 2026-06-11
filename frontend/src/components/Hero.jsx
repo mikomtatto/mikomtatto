@@ -14,7 +14,10 @@ const Hero = () => {
       const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000'
       const response = await axios.get(`${API_URL}/api/site/hero-backgrounds/?is_active=true`)
       if (response.data && response.data.length > 0) {
-        setHeroBackground(response.data[0])
+        const activeHero = response.data[0]
+        if (activeHero.is_active && activeHero.image_url) {
+          setHeroBackground(activeHero)
+        }
       }
     } catch (error) {
       console.error('Hero background yüklenirken hata:', error)

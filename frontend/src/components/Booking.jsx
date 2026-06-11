@@ -250,7 +250,7 @@ const Booking = () => {
                   value={formData.date}
                   onChange={handleChange}
                   required
-                  className="w-full bg-gray-800/50 border border-gray-700 rounded-xl px-3 sm:px-4 py-2 sm:py-3 text-white focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/20 transition-all text-sm sm:text-base"
+                  className="w-full bg-gray-800/50 border border-gray-700 rounded-xl px-2 sm:px-4 py-2 sm:py-3 text-white focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/20 transition-all text-xs sm:text-base"
                 />
               </div>
               <div>
@@ -263,7 +263,7 @@ const Booking = () => {
                   value={formData.time}
                   onChange={handleChange}
                   required
-                  className="w-full bg-gray-800/50 border border-gray-700 rounded-xl px-3 sm:px-4 py-2 sm:py-3 text-white focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/20 transition-all text-sm sm:text-base"
+                  className="w-full bg-gray-800/50 border border-gray-700 rounded-xl px-2 sm:px-4 py-2 sm:py-3 text-white focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/20 transition-all text-xs sm:text-base"
                 />
               </div>
             </div>
