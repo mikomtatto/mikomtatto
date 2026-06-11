@@ -23,7 +23,7 @@ function App() {
             <>
               <Hero />
               <Gallery isHorizontal={true} />
-              <Styles isHorizontal={true} />
+              <Styles isHorizontal={true} hideViewAll={true} />
               <Booking />
               <Contact />
             </>
@@ -35,7 +35,6 @@ function App() {
           <Route path="/styles/:id" element={<StyleDetail />} />
           <Route path="/booking" element={<Booking />} />
           <Route path="/admin" element={<AdminPanel />} />
-          <Route path="/django-admin" element={<Navigate to={`${API_URL}/admin`} replace />} />
         </Routes>
         <Footer />
       </div>
