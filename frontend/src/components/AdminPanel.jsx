@@ -291,8 +291,8 @@ const AdminPanel = () => {
               <div>
                 <div className="flex justify-between items-center mb-6">
                   <h2 className="font-display text-2xl font-bold">Galeri</h2>
-                  <a href={`${import.meta.env.VITE_API_URL || 'http://localhost:8000'}/admin/gallery/image/`} target="_blank" rel="noopener noreferrer" className="text-accent hover:underline text-sm flex items-center gap-1">
-                    Yeni fotoğraf eklemek için Django admin →
+                  <a href={`${import.meta.env.VITE_API_URL || 'http://localhost:8000'}/admin/`} target="_blank" rel="noopener noreferrer" className="text-accent hover:underline text-sm flex items-center gap-1">
+                    Yönetmek için Django admin →
                   </a>
                 </div>
                 {data.gallery?.length === 0 ? (
@@ -339,8 +339,8 @@ const AdminPanel = () => {
               <div>
                 <div className="flex justify-between items-center mb-6">
                   <h2 className="font-display text-2xl font-bold">Dövme Stilleri</h2>
-                  <a href={`${import.meta.env.VITE_API_URL || 'http://localhost:8000'}/admin/styles/style/`} target="_blank" rel="noopener noreferrer" className="text-accent hover:underline text-sm flex items-center gap-1">
-                    Yeni stil eklemek için Django admin →
+                  <a href={`${import.meta.env.VITE_API_URL || 'http://localhost:8000'}/admin/`} target="_blank" rel="noopener noreferrer" className="text-accent hover:underline text-sm flex items-center gap-1">
+                    Yönetmek için Django admin →
                   </a>
                 </div>
                 {data.styles?.length === 0 ? (
@@ -383,8 +383,8 @@ const AdminPanel = () => {
               <div>
                 <div className="flex justify-between items-center mb-6">
                   <h2 className="font-display text-2xl font-bold">Hakkımızda</h2>
-                  <a href={`${import.meta.env.VITE_API_URL || 'http://localhost:8000'}/admin/styles/style/`} target="_blank" rel="noopener noreferrer" className="text-accent hover:underline text-sm flex items-center gap-1">
-                    Düzenlemek için Django admin →
+                  <a href={`${import.meta.env.VITE_API_URL || 'http://localhost:8000'}/admin/`} target="_blank" rel="noopener noreferrer" className="text-accent hover:underline text-sm flex items-center gap-1">
+                    Yönetmek için Django admin →
                   </a>
                 </div>
                 {data.about?.length === 0 ? (
@@ -410,8 +410,8 @@ const AdminPanel = () => {
               <div>
                 <div className="flex justify-between items-center mb-6">
                   <h2 className="font-display text-2xl font-bold">İletişim Bilgileri</h2>
-                  <a href={`${import.meta.env.VITE_API_URL || 'http://localhost:8000'}/admin/styles/style/`} target="_blank" rel="noopener noreferrer" className="text-accent hover:underline text-sm flex items-center gap-1">
-                    Düzenlemek için Django admin →
+                  <a href={`${import.meta.env.VITE_API_URL || 'http://localhost:8000'}/admin/`} target="_blank" rel="noopener noreferrer" className="text-accent hover:underline text-sm flex items-center gap-1">
+                    Yönetmek için Django admin →
                   </a>
                 </div>
                 {data.contact?.length === 0 ? (

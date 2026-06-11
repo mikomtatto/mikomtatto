@@ -34,21 +34,19 @@ DEBUG = os.getenv('DEBUG', 'True') == 'True'
 
 ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', 'localhost,127.0.0.1').split(',')
 
-CORS_ALLOWED_ORIGINS = [
+# CORS settings from environment variables
+default_cors_origins = [
     "http://localhost:3000",
     "http://127.0.0.1:3000",
     "https://mikomtatto.vercel.app",
     "https://mikomtatto-backend.onrender.com",
     "https://mikomtatto.com",
+    "https://www.mikomtatto.com",
 ]
+cors_origins_env = os.getenv('CORS_ALLOWED_ORIGINS', '')
+CORS_ALLOWED_ORIGINS = cors_origins_env.split(',') if cors_origins_env else default_cors_origins
 
-CSRF_TRUSTED_ORIGINS = [
-    "http://localhost:3000",
-    "http://127.0.0.1:3000",
-    "https://mikomtatto.vercel.app",
-    "https://mikomtatto-backend.onrender.com",
-    "https://mikomtatto.com",
-]
+CSRF_TRUSTED_ORIGINS = CORS_ALLOWED_ORIGINS
 
 CORS_ALLOW_CREDENTIALS = True
 
