@@ -23,7 +23,6 @@ const StyleDetail = () => {
 
   const fetchData = async () => {
     try {
-      const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000'
       const [styleRes, commentsRes] = await Promise.all([
         axios.get(`${API_URL}/api/styles/${id}/`),
         axios.get(`${API_URL}/api/gallery/comments/?content_type=tattoostyle&object_id=${id}`)
@@ -84,7 +83,7 @@ const StyleDetail = () => {
 
   if (loading) {
     return (
-      <section className="py-20 px-4">
+      <section className="pt-32 sm:pt-36 md:pt-40 pb-20 px-4">
         <div className="max-w-4xl mx-auto text-center">
           <div className="text-gray-400">Yükleniyor...</div>
         </div>
@@ -94,7 +93,7 @@ const StyleDetail = () => {
 
   if (!style) {
     return (
-      <section className="py-20 px-4">
+      <section className="pt-32 sm:pt-36 md:pt-40 pb-20 px-4">
         <div className="max-w-4xl mx-auto text-center">
           <div className="text-gray-400">Stil bulunamadı.</div>
           <Link to="/styles" className="inline-block mt-4 btn-primary">
@@ -106,7 +105,7 @@ const StyleDetail = () => {
   }
 
   return (
-    <section className="py-20 px-4">
+    <section className="pt-32 sm:pt-36 md:pt-40 pb-20 px-4">
       <div className="max-w-6xl mx-auto">
         <Link to="/styles" className="inline-flex items-center gap-2 text-gray-400 hover:text-accent transition-colors mb-8">
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

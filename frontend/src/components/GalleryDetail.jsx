@@ -22,7 +22,6 @@ const GalleryDetail = () => {
 
   const fetchData = async () => {
     try {
-      const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000'
       const [imageRes, commentsRes] = await Promise.all([
         axios.get(`${API_URL}/api/gallery/images/${id}/`),
         axios.get(`${API_URL}/api/gallery/comments/?content_type=galleryimage&object_id=${id}`)
@@ -79,7 +78,7 @@ const GalleryDetail = () => {
 
   if (loading) {
     return (
-      <section className="py-20 px-4">
+      <section className="pt-32 sm:pt-36 md:pt-40 pb-20 px-4">
         <div className="max-w-4xl mx-auto text-center">
           <div className="text-gray-400">Yükleniyor...</div>
         </div>
@@ -89,7 +88,7 @@ const GalleryDetail = () => {
 
   if (!image) {
     return (
-      <section className="py-20 px-4">
+      <section className="pt-32 sm:pt-36 md:pt-40 pb-20 px-4">
         <div className="max-w-4xl mx-auto text-center">
           <div className="text-gray-400">Fotoğraf bulunamadı.</div>
           <Link to="/gallery" className="inline-block mt-4 btn-primary">
@@ -101,8 +100,8 @@ const GalleryDetail = () => {
   }
 
   return (
-    <section className="py-20 px-4">
-      <div className="max-w-6xl mx-auto">
+    <section className="pt-32 sm:pt-36 md:pt-40 pb-20 px-4">
+      <div className="max-w-5xl mx-auto">
         <Link to="/gallery" className="inline-flex items-center gap-2 text-gray-400 hover:text-accent transition-colors mb-8">
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -111,7 +110,7 @@ const GalleryDetail = () => {
         </Link>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-          <div>
+          <div className="lg:max-w-md">
             <div className="aspect-[4/5] overflow-hidden rounded-2xl bg-gray-900 border border-gray-800">
               <img 
                 src={image.image_url} 

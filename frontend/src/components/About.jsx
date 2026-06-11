@@ -59,7 +59,7 @@ const About = () => {
   }
 
   return (
-    <section id="about" className="py-20 px-4">
+    <section id="about" className="pt-32 sm:pt-36 md:pt-40 pb-20 px-4">
       <div className="max-w-7xl mx-auto">
         <h2 className="section-title text-center">Hakkımızda</h2>
         <p className="section-subtitle text-center">
