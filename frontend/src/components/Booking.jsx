@@ -87,6 +87,7 @@ const Booking = () => {
     style: null,
     description: ''
   })
+  const [selectedStyleObject, setSelectedStyleObject] = useState(null)
   const [styles, setStyles] = useState([])
   const [loading, setLoading] = useState(false)
   const [success, setSuccess] = useState(false)
@@ -103,6 +104,7 @@ const Booking = () => {
       const matchedStyle = styles.find(s => s.id === parseInt(preSelectedStyleId))
       if (matchedStyle) {
         setFormData(prev => ({ ...prev, style: matchedStyle.id }))
+        setSelectedStyleObject(matchedStyle)
       }
     }
   }, [searchParams, styles])
@@ -119,6 +121,7 @@ const Booking = () => {
 
   const handleStyleSelect = (style) => {
     setFormData(prev => ({ ...prev, style: style.id }))
+    setSelectedStyleObject(style)
   }
 
   const handleSubmit = async (e) => {
@@ -139,6 +142,7 @@ const Booking = () => {
         style: null,
         description: ''
       })
+      setSelectedStyleObject(null)
     } catch (error) {
       setError('Randevu oluşturulurken bir hata oluştu. Lütfen tekrar deneyin.')
       console.error('Randevu hatası:', error)
@@ -280,7 +284,7 @@ const Booking = () => {
               </label>
               <StyleSelector
                 styles={styles}
-                selectedStyle={styles.find(s => s.id === formData.style)}
+                selectedStyle={selectedStyleObject}
                 onSelect={handleStyleSelect}
               />
             </div>
