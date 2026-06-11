@@ -68,13 +68,21 @@ const About = () => {
         </p>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mt-12 items-center">
-          {about.image_url && (
+          {about.image_url ? (
             <div className="aspect-square overflow-hidden rounded-xl">
-              <img 
-                src={about.image_url} 
+              <img
+                src={about.image_url}
                 alt={about.title}
                 className="w-full h-full object-cover"
+                onError={(e) => {
+                  console.error('About image load error:', about.image_url)
+                  e.target.style.display = 'none'
+                }}
               />
+            </div>
+          ) : (
+            <div className="aspect-square overflow-hidden rounded-xl bg-gradient-to-br from-gray-800 to-gray-900 flex items-center justify-center">
+              <span className="text-6xl">🎨</span>
             </div>
           )}
           
