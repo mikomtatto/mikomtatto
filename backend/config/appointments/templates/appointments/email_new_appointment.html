@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Randevu Talebiniz Alındı</title>
+</head>
+<body style="margin: 0; padding: 0; background-color: #0a0a0a; font-family: Arial, sans-serif;">
+    <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #0a0a0a;">
+        <tr>
+            <td align="center" style="padding: 40px 20px;">
+                <table width="600" cellpadding="0" cellspacing="0" style="background-color: #1a1a1a; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);">
+                    <!-- Header -->
+                    <tr>
+                        <td style="background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%); padding: 40px 30px; text-align: center; border-bottom: 2px solid #10b981;">
+                            <h1 style="margin: 0; color: #ffffff; font-size: 32px; font-weight: bold;">
+                                <span style="color: #f59e0b;">Mikom</span>Tattoo
+                            </h1>
+                            <p style="margin: 10px 0 0 0; color: #888888; font-size: 16px;">Randevu Talebiniz Alındı</p>
+                        </td>
+                    </tr>
+                    
+                    <!-- Content -->
+                    <tr>
+                        <td style="padding: 40px 30px;">
+                            <p style="margin: 0 0 20px 0; color: #ffffff; font-size: 18px; line-height: 1.6;">
+                                Merhaba <strong>{{ name }}</strong>,
+                            </p>
+                            <p style="margin: 0 0 30px 0; color: #aaaaaa; font-size: 16px; line-height: 1.6;">
+                                Randevu talebiniz başarıyla aldık. En kısa sürede size dönüş yapacağız.
+                            </p>
+                            
+                            <!-- Success Message -->
+                            <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #064e3b; border-radius: 12px; margin-bottom: 30px;">
+                                <tr>
+                                    <td style="padding: 20px; text-align: center;">
+                                        <p style="margin: 0; color: #ffffff; font-size: 20px; font-weight: bold;">
+                                            ✓ Talebiniz Alındı
+                                        </p>
+                                    </td>
+                                </tr>
+                            </table>
+                            
+                            <!-- Appointment Details -->
+                            <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #2a2a2a; border-radius: 12px; overflow: hidden; margin-bottom: 30px;">
+                                <tr>
+                                    <td style="padding: 25px;">
+                                        <p style="margin: 0 0 15px 0; color: #f59e0b; font-size: 14px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px;">
+                                            Randevu Detayları
+                                        </p>
+                                        <table width="100%" cellpadding="0" cellspacing="0">
+                                            <tr>
+                                                <td style="padding: 10px 0; border-bottom: 1px solid #3a3a3a;">
+                                                    <span style="color: #888888; font-size: 14px;">Tarih:</span>
+                                                    <span style="color: #ffffff; font-size: 14px; font-weight: bold; margin-left: 10px;">{{ date }}</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="padding: 10px 0; border-bottom: 1px solid #3a3a3a;">
+                                                    <span style="color: #888888; font-size: 14px;">Saat:</span>
+                                                    <span style="color: #ffffff; font-size: 14px; font-weight: bold; margin-left: 10px;">{{ time }}</span>
+                                                </td>
+                                            </tr>
+                                            {% if style %}
+                                            <tr>
+                                                <td style="padding: 10px 0; border-bottom: 1px solid #3a3a3a;">
+                                                    <span style="color: #888888; font-size: 14px;">Dövme Stili:</span>
+                                                    <span style="color: #f59e0b; font-size: 14px; font-weight: bold; margin-left: 10px;">{{ style }}</span>
+                                                </td>
+                                            </tr>
+                                            {% endif %}
+                                            <tr>
+                                                <td style="padding: 10px 0;">
+                                                    <span style="color: #888888; font-size: 14px;">Açıklama:</span>
+                                                    <span style="color: #ffffff; font-size: 14px; margin-left: 10px;">{{ description }}</span>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                            
+                            <!-- Contact Info -->
+                            <p style="margin: 30px 0 10px 0; color: #888888; font-size: 14px; text-align: center;">
+                                Herhangi bir sorunuz için bizimle iletişime geçin:
+                            </p>
+                            <p style="margin: 0; color: #f59e0b; font-size: 16px; text-align: center; font-weight: bold;">
+                                info@mikomtatto.com
+                            </p>
+                        </td>
+                    </tr>
+                    
+                    <!-- Footer -->
+                    <tr>
+                        <td style="background-color: #1a1a1a; padding: 30px; text-align: center; border-top: 1px solid #2a2a2a;">
+                            <p style="margin: 0 0 10px 0; color: #888888; font-size: 14px;">
+                                İyi günler dileriz,
+                            </p>
+                            <p style="margin: 0; color: #ffffff; font-size: 18px; font-weight: bold;">
+                                MikomTattoo
+                            </p>
+                            <p style="margin: 20px 0 0 0; color: #666666; font-size: 12px;">
+                                © 2024 MikomTattoo. Tüm hakları saklıdır.
+                            </p>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>
