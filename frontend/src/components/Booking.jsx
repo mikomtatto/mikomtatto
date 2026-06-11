@@ -270,7 +270,7 @@ const Booking = () => {
 
             <div>
               <label className="block text-gray-300 mb-2 sm:mb-3 font-medium flex items-center gap-2 text-sm sm:text-base">
-                <span className="text-accent">🎨</span> Dövme Stili
+                <span className="text-accent">🎨</span> Dövme Stili (Opsiyonel)
               </label>
               <StyleSelector
                 styles={styles}
