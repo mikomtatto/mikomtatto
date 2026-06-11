@@ -21,7 +21,7 @@ function App() {
             <>
               <Hero />
               <Gallery isHorizontal={true} />
-              <Styles isHorizontal={true} hideViewAll={true} />
+              <Styles isHorizontal={true} />
               <Booking />
               <Contact />
             </>
