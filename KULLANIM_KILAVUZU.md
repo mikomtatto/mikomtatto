@@ -10,6 +10,8 @@
 ---
 Django admin = https://mikomtatto.onrender.com/admin
 site içerisi admin page = https://www.mikomtatto.com/admin
+username = admin (yeni kullanıcı oluşturup bunu admin sayfasından silin)
+password = admin 
 ## 🔐 Hesap Bilgileri
 
 ### Ana Hesap
