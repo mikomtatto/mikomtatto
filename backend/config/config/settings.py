@@ -194,5 +194,5 @@ EMAIL_BACKEND = "anymail.backends.brevo.EmailBackend"
 ANYMAIL = {
     'BREVO_API_KEY': os.getenv('BREVO_API_KEY', ''),
 }
-DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL', 'noreply@mikomtatto.com')
+DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL', 'iletisim@mikomtatto.com')
 ADMIN_EMAIL = os.getenv('ADMIN_EMAIL', 'admin@mikomtatto.com')
