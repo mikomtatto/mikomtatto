@@ -48,8 +48,6 @@ CORS_ALLOWED_ORIGINS = cors_origins_env.split(',') if cors_origins_env else defa
 
 CSRF_TRUSTED_ORIGINS = CORS_ALLOWED_ORIGINS
 
-# Allow all origins for CORS
-CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = False
 
 
