@@ -18,7 +18,7 @@ Django + React ile geliştirilmiş, siyah temalı ve mobil uyumlu dövme stüdyo
 - Django REST Framework
 - Django CORS Headers
 - Pillow (görsel işlemleri için)
-- SQLite (veritabanı)
+- Supabase (veritabanı)
 
 ### Frontend
 - React 18

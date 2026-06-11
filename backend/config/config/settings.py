@@ -27,18 +27,19 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-uailom%=1^)9*bp1e#tf%jl%(#9boh0c_r!9@%vhkymg3fw91t'
+SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-uailom%=1^)9*bp1e#tf%jl%(#9boh0c_r!9@%vhkymg3fw91t')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv('DEBUG', 'True') == 'True'
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', 'localhost,127.0.0.1').split(',')
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "http://127.0.0.1:3000",
     "https://mikomtatto.vercel.app",
     "https://mikomtatto-backend.onrender.com",
+    "https://mikomtatto.com",
 ]
 
 CSRF_TRUSTED_ORIGINS = [
@@ -46,6 +47,7 @@ CSRF_TRUSTED_ORIGINS = [
     "http://127.0.0.1:3000",
     "https://mikomtatto.vercel.app",
     "https://mikomtatto-backend.onrender.com",
+    "https://mikomtatto.com",
 ]
 
 CORS_ALLOW_CREDENTIALS = True
@@ -159,11 +161,6 @@ import cloudinary
 import cloudinary.uploader
 import cloudinary.api
 
-# Debug: Print environment variables
-print(f"CLOUDINARY_CLOUD_NAME: {os.getenv('CLOUDINARY_CLOUD_NAME')}")
-print(f"CLOUDINARY_API_KEY: {os.getenv('CLOUDINARY_API_KEY')}")
-print(f"CLOUDINARY_API_SECRET: {os.getenv('CLOUDINARY_API_SECRET')}")
-
 cloudinary.config(
     cloud_name=os.getenv('CLOUDINARY_CLOUD_NAME'),
     api_key=os.getenv('CLOUDINARY_API_KEY'),
@@ -176,6 +173,15 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 # Default file storage to Cloudinary
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
+# Security settings for production
+if not DEBUG:
+    SECURE_SSL_REDIRECT = True
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
+    SECURE_BROWSER_XSS_FILTER = True
+    SECURE_CONTENT_TYPE_NOSNIFF = True
+    X_FRAME_OPTIONS = 'DENY'
 
 # Static files storage
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
