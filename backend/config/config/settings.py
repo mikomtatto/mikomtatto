@@ -64,6 +64,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'cloudinary_storage',
+    'anymail',
     'appointments',
     'gallery',
     'styles',
@@ -184,12 +185,10 @@ if not DEBUG:
 # Static files storage
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-# Email settings (Brevo)
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = os.getenv('EMAIL_HOST', 'smtp-relay.brevo.com')
-EMAIL_PORT = int(os.getenv('EMAIL_PORT', '587'))
-EMAIL_USE_TLS = os.getenv('EMAIL_USE_TLS', 'True') == 'True'
-EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER', '')
-EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD', '')
+# Email settings (Anymail with Brevo)
+EMAIL_BACKEND = 'anymail.backends.email.EmailBackend'
+ANYMAIL = {
+    'BREVO_API_KEY': os.getenv('BREVO_API_KEY', ''),
+}
 DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL', 'noreply@mikomtatto.com')
 ADMIN_EMAIL = os.getenv('ADMIN_EMAIL', 'admin@mikomtatto.com')
