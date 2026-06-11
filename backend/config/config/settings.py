@@ -188,8 +188,7 @@ if not DEBUG:
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Email settings (Anymail with Brevo)
-# Temporarily using console backend until Anymail is properly installed
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND = 'anymail.backends.email.EmailBackend'
 ANYMAIL = {
     'BREVO_API_KEY': os.getenv('BREVO_API_KEY', ''),
 }
