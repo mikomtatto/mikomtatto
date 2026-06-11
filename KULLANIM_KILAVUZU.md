@@ -8,13 +8,15 @@
 5. [Sorun Giderme](#sorun-giderme)
 
 ---
-
+Django admin = https://mikomtatto.onrender.com/admin
+site içerisi admin page = https://www.mikomtatto.com/admin
 ## 🔐 Hesap Bilgileri
 
 ### Ana Hesap
 - **Email:** mikomtatto0@gmail.com
-- **Şifre:** Test12345!
+- **Şifre:** Test12345! (şifreyi değiştirin)
 - **GitHub:** mikomtatto (aynı email ile bağlı)
+- alttaki tüm hesaplar bu email ile giriş yapar
 
 ### Hizmetler
 
@@ -44,7 +46,7 @@
 - **URL:** https://www.mikomtatto.com
 - **Kullanım:** React frontend hosting
 - **Environment Variables:**
-  - `VITE_API_URL`: https://mikomtatto-backend.onrender.com
+  - `VITE_API_URL`: https://mikomtatto.onrender.com
 
 #### 4. Supabase (Veritabanı)
 - **URL:** https://supabase.com
@@ -82,9 +84,9 @@
 ## 🎨 Django Admin Kullanımı
 
 ### Admin Panel Erişim
-- **URL:** https://mikomtatto-backend.onrender.com/admin
+- **URL:** https://mikomtatto.onrender.com/admin
 - **Kullanıcı Adı:** admin
-- **Şifre:** (Django admin şifresi - create_superuser.py ile oluşturuldu)
+- **Şifre:** admin (kullanıcı adı ve şifre oluşturduktan sonra bu hesabı silin)
 
 ### İçerik Yönetimi
 
@@ -138,8 +140,7 @@
   - Email
   - Yorum
   - Puan (1-5)
-  - Onaylandı (Admin onayı gerekli)
-- **Not:** Kullanıcı yorumları, admin onayı gerekli
+  
 
 #### 3. Stiller (Styles)
 
@@ -148,6 +149,7 @@
 - **Düzenlenebilir Alanlar:**
   - İsim
   - Açıklama
+  - Fiyat Aralığı
   - Görsel (Cloudinary'ye yüklenir)
   - Oluşturma Tarihi
 - **Not:** Ana sayfa ve stiller sayfasında gösterilir
@@ -160,8 +162,7 @@
   - Email
   - Yorum
   - Puan (1-5)
-  - Onaylandı (Admin onayı gerekli)
-- **Not:** Kullanıcı yorumları, admin onayı gerekli
+
 
 #### 4. Randevular (Appointments)
 
