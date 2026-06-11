@@ -118,7 +118,7 @@ const Booking = () => {
   }
 
   const handleStyleSelect = (style) => {
-    setFormData(prev => ({ ...prev, style: style }))
+    setFormData(prev => ({ ...prev, style: style.id }))
   }
 
   const handleSubmit = async (e) => {
