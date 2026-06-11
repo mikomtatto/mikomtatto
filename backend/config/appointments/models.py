@@ -161,28 +161,39 @@ Açıklama: {admin_context['description']}
                 old_status = old_instance.status
                 if old_status != self.status:
                     super().save(*args, **kwargs)
-                    self.send_status_email(old_status)
+                    # Send email asynchronously (don't block save)
+                    try:
+                        self.send_status_email(old_status)
+                    except Exception as e:
+                        print(f"Status email failed but appointment saved: {str(e)}")
                     return
             except Appointment.DoesNotExist:
                 pass
         
-        # For new appointments
+        # For new appointments - save first, then send emails
         super().save(*args, **kwargs)
         
-        # Send initial email for new appointments
+        # Send initial email for new appointments (non-blocking)
         if self.status == 'pending':
-            customer_subject = "Randevu Talebiniz Alındı - MikomTattoo"
-            
-            context = {
-                'name': self.name,
-                'date': self.date,
-                'time': self.time,
-                'style': self.style.name if self.style else None,
-                'description': self.description
-            }
-            
-            html_content = render_to_string('appointments/email_new_appointment.html', context)
-            text_content = f"""
+            try:
+                self.send_initial_emails()
+            except Exception as e:
+                print(f"Initial emails failed but appointment saved: {str(e)}")
+    
+    def send_initial_emails(self):
+        """Send initial emails for new appointments"""
+        customer_subject = "Randevu Talebiniz Alındı - MikomTattoo"
+        
+        context = {
+            'name': self.name,
+            'date': self.date,
+            'time': self.time,
+            'style': self.style.name if self.style else None,
+            'description': self.description
+        }
+        
+        html_content = render_to_string('appointments/email_new_appointment.html', context)
+        text_content = f"""
 Merhaba {context['name']},
 
 Randevu talebiniz aldık. En kısa sürede size dönüş yapacağız.
@@ -198,38 +209,38 @@ E-posta: info@mikomtatto.com
 
 İyi günler dileriz,
 MikomTattoo
-            """.strip()
-            
-            try:
-                msg = EmailMultiAlternatives(
-                    customer_subject,
-                    text_content,
-                    settings.DEFAULT_FROM_EMAIL,
-                    [self.email]
-                )
-                msg.attach_alternative(html_content, 'text/html')
-                result = msg.send()
-                print(f"Initial customer email sent: {result}")
-            except Exception as e:
-                print(f"Initial email error: {str(e)}")
-                import traceback
-                traceback.print_exc()
-            
-            # Notify admin about new appointment
-            admin_subject = f"Yeni Randevu Talebi - {self.name}"
-            
-            admin_context = {
-                'name': self.name,
-                'phone': self.phone,
-                'email': self.email,
-                'date': self.date,
-                'time': self.time,
-                'style': self.style.name if self.style else None,
-                'description': self.description
-            }
-            
-            admin_html_content = render_to_string('appointments/email_admin_new_appointment.html', admin_context)
-            admin_text_content = f"""
+        """.strip()
+        
+        try:
+            msg = EmailMultiAlternatives(
+                customer_subject,
+                text_content,
+                settings.DEFAULT_FROM_EMAIL,
+                [self.email]
+            )
+            msg.attach_alternative(html_content, 'text/html')
+            result = msg.send()
+            print(f"Initial customer email sent: {result}")
+        except Exception as e:
+            print(f"Initial email error: {str(e)}")
+            import traceback
+            traceback.print_exc()
+        
+        # Notify admin about new appointment
+        admin_subject = f"Yeni Randevu Talebi - {self.name}"
+        
+        admin_context = {
+            'name': self.name,
+            'phone': self.phone,
+            'email': self.email,
+            'date': self.date,
+            'time': self.time,
+            'style': self.style.name if self.style else None,
+            'description': self.description
+        }
+        
+        admin_html_content = render_to_string('appointments/email_admin_new_appointment.html', admin_context)
+        admin_text_content = f"""
 Yeni randevu talebi:
 
 Müşteri: {admin_context['name']}
@@ -239,19 +250,19 @@ Tarih: {admin_context['date']}
 Saat: {admin_context['time']}
 {f"Dövme Stili: {admin_context['style']}" if admin_context['style'] else ""}
 Açıklama: {admin_context['description']}
-            """.strip()
-            
-            try:
-                msg = EmailMultiAlternatives(
-                    admin_subject,
-                    admin_text_content,
-                    settings.DEFAULT_FROM_EMAIL,
-                    [settings.ADMIN_EMAIL]
-                )
-                msg.attach_alternative(admin_html_content, 'text/html')
-                result = msg.send()
-                print(f"Admin notification email sent: {result}")
-            except Exception as e:
-                print(f"Admin notification error: {str(e)}")
-                import traceback
-                traceback.print_exc()
+        """.strip()
+        
+        try:
+            msg = EmailMultiAlternatives(
+                admin_subject,
+                admin_text_content,
+                settings.DEFAULT_FROM_EMAIL,
+                [settings.ADMIN_EMAIL]
+            )
+            msg.attach_alternative(admin_html_content, 'text/html')
+            result = msg.send()
+            print(f"Admin notification email sent: {result}")
+        except Exception as e:
+            print(f"Admin notification error: {str(e)}")
+            import traceback
+            traceback.print_exc()
