@@ -76,7 +76,7 @@ const About = () => {
                 className="w-full h-full object-cover"
                 onError={(e) => {
                   console.error('About image load error:', about.image_url)
-                  e.target.style.display = 'none'
+                  e.target.parentElement.innerHTML = '<div class="aspect-square bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl flex items-center justify-center"><span class="text-6xl">🎨</span></div>'
                 }}
               />
             </div>
