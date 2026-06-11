@@ -20,6 +20,8 @@ const GalleryDetail = () => {
     fetchData()
   }, [id])
 
+  const API_URL = import.meta.env.VITE_API_URL || 'https://mikomtatto-backend.onrender.com'
+
   const fetchData = async () => {
     try {
       const [imageRes, commentsRes] = await Promise.all([
