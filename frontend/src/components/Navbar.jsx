@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import axios from 'axios'
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const [contactInfo, setContactInfo] = useState(null)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -12,6 +14,32 @@ const Navbar = () => {
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
+
+  useEffect(() => {
+    fetchContactInfo()
+  }, [])
+
+  const fetchContactInfo = async () => {
+    try {
+      const API_URL = import.meta.env.VITE_API_URL || 'https://mikomtatto-backend.onrender.com'
+      const response = await axios.get(`${API_URL}/api/site/contact/`)
+      if (response.data && response.data.length > 0) {
+        setContactInfo(response.data[0])
+        // Update document title and meta description
+        if (response.data[0].site_title) {
+          document.title = response.data[0].site_title
+        }
+        if (response.data[0].site_description) {
+          const metaDescription = document.querySelector('meta[name="description"]')
+          if (metaDescription) {
+            metaDescription.setAttribute('content', response.data[0].site_description)
+          }
+        }
+      }
+    } catch (error) {
+      console.error('İletişim bilgileri yüklenirken hata:', error)
+    }
+  }
 
   return (
     <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
@@ -22,8 +50,18 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 sm:h-20">
           <Link to="/" className="font-display text-xl sm:text-2xl font-bold">
-            <span className="text-white">Mikom</span>
-            <span className="text-accent">Tatto</span>
+            {contactInfo && contactInfo.logo ? (
+              <img 
+                src={contactInfo.logo} 
+                alt="MikomTatto" 
+                className="h-8 sm:h-10 w-auto"
+              />
+            ) : (
+              <>
+                <span className="text-white">Mikom</span>
+                <span className="text-accent">Tatto</span>
+              </>
+            )}
           </Link>
           
           <div className="hidden md:flex items-center space-x-6 sm:space-x-8">
