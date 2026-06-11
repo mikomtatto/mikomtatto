@@ -53,11 +53,11 @@ const Navbar = () => {
       {isOpen && (
         <div className="md:hidden bg-darker/95 backdrop-blur-md border-t border-gray-800 shadow-xl">
           <div className="px-4 py-4 space-y-3">
-            <Link to="/" className="block text-gray-300 hover:text-accent transition-colors duration-300 py-2 text-base font-medium">Ana Sayfa</Link>
-            <Link to="/gallery" className="block text-gray-300 hover:text-accent transition-colors duration-300 py-2 text-base font-medium">Galeri</Link>
-            <Link to="/styles" className="block text-gray-300 hover:text-accent transition-colors duration-300 py-2 text-base font-medium">Stiller</Link>
-            <Link to="/about" className="block text-gray-300 hover:text-accent transition-colors duration-300 py-2 text-base font-medium">Hakkımızda</Link>
-            <Link to="/booking" className="block btn-primary text-center py-3 text-base font-medium">Randevu Al</Link>
+            <Link to="/" className="block text-gray-300 hover:text-accent transition-colors duration-300 py-2 text-base font-medium" onClick={() => setIsOpen(false)}>Ana Sayfa</Link>
+            <Link to="/gallery" className="block text-gray-300 hover:text-accent transition-colors duration-300 py-2 text-base font-medium" onClick={() => setIsOpen(false)}>Galeri</Link>
+            <Link to="/styles" className="block text-gray-300 hover:text-accent transition-colors duration-300 py-2 text-base font-medium" onClick={() => setIsOpen(false)}>Stiller</Link>
+            <Link to="/about" className="block text-gray-300 hover:text-accent transition-colors duration-300 py-2 text-base font-medium" onClick={() => setIsOpen(false)}>Hakkımızda</Link>
+            <Link to="/booking" className="block btn-primary text-center py-3 text-base font-medium" onClick={() => setIsOpen(false)}>Randevu Al</Link>
           </div>
         </div>
       )}
