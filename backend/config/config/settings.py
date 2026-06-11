@@ -32,7 +32,7 @@ SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-uailom%=1^)9*bp1e#tf%jl%(#
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DEBUG', 'True') == 'True'
 
-ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', 'localhost,127.0.0.1').split(',')
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', 'localhost,127.0.0.1,mikomtatto.com,www.mikomtatto.com,mikomtatto-backend.onrender.com').split(',')
 
 # CORS settings from environment variables
 default_cors_origins = [
@@ -188,7 +188,8 @@ if not DEBUG:
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Email settings (Anymail with Brevo)
-EMAIL_BACKEND = 'anymail.backends.email.EmailBackend'
+# Temporarily using console backend until Anymail is properly installed
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 ANYMAIL = {
     'BREVO_API_KEY': os.getenv('BREVO_API_KEY', ''),
 }
