@@ -27,7 +27,8 @@ useEffect(() => {
   
   const fetchImages = async () => {
     try {
-      const response = await axios.get(`/api/gallery/images/`)
+      const API_URL = import.meta.env.VITE_API_URL || 'https://mikomtatto-backend.onrender.com'
+      const response = await axios.get(`${API_URL}/api/gallery/images/`)
       console.log('Gallery images response:', response.data)
       setImages(response.data)
     } catch (error) {

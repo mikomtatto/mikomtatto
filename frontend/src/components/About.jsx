@@ -13,9 +13,10 @@ const About = () => {
 
   const fetchData = async () => {
     try {
+      const API_URL = import.meta.env.VITE_API_URL || 'https://mikomtatto-backend.onrender.com'
       const [aboutRes, contactRes] = await Promise.all([
-        axios.get(`/api/site/about/`),
-        axios.get(`/api/site/contact/`)
+        axios.get(`${API_URL}/api/site/about/`),
+        axios.get(`${API_URL}/api/site/contact/`)
       ])
       
       if (aboutRes.data && aboutRes.data.length > 0) {
