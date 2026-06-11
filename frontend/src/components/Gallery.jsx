@@ -27,8 +27,7 @@ useEffect(() => {
   
   const fetchImages = async () => {
     try {
-      const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000'
-      const response = await axios.get(`${API_URL}/api/gallery/images/`)
+      const response = await axios.get(`/api/gallery/images/`)
       console.log('Gallery images response:', response.data)
       setImages(response.data)
     } catch (error) {

@@ -13,10 +13,9 @@ const About = () => {
 
   const fetchData = async () => {
     try {
-      const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000'
       const [aboutRes, contactRes] = await Promise.all([
-        axios.get(`${API_URL}/api/site/about/`),
-        axios.get(`${API_URL}/api/site/contact/`)
+        axios.get(`/api/site/about/`),
+        axios.get(`/api/site/contact/`)
       ])
       
       if (aboutRes.data && aboutRes.data.length > 0) {
