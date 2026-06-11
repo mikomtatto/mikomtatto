@@ -21,9 +21,9 @@ class ContactInfo(models.Model):
     facebook = models.URLField(blank=True, verbose_name='Facebook')
     instagram = models.URLField(blank=True, verbose_name='Instagram')
     twitter = models.URLField(blank=True, verbose_name='Twitter')
-    logo = models.ImageField(upload_to='logo/', blank=True, verbose_name='Logo')
-    site_title = models.CharField(max_length=200, default='MikomTattoo - Dövme Sanat Stüdyosu', verbose_name='Site Başlığı')
-    site_description = models.TextField(default='MikomTattoo - Profesyonel dövme sanat stüdyosu. Randevu alın, galerimizi inceleyin ve dövme stillerimizi keşfedin.', verbose_name='Site Açıklaması')
+    logo = models.ImageField(upload_to='logo/', blank=True, null=True, verbose_name='Logo')
+    site_title = models.CharField(max_length=200, blank=True, default='MikomTattoo - Dövme Sanat Stüdyosu', verbose_name='Site Başlığı')
+    site_description = models.TextField(blank=True, default='MikomTattoo - Profesyonel dövme sanat stüdyosu. Randevu alın, galerimizi inceleyin ve dövme stillerimizi keşfedin.', verbose_name='Site Açıklaması')
     updated_at = models.DateTimeField(auto_now=True, verbose_name='Güncelleme Tarihi')
 
     class Meta:
