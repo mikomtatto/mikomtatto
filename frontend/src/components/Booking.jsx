@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { useSearchParams } from 'react-router-dom'
+import { useSearchParams, Link } from 'react-router-dom'
 import axios from 'axios'
 
 const StyleSelector = ({ styles, selectedStyle, onSelect }) => {
@@ -166,12 +166,12 @@ const Booking = () => {
             <p className="text-gray-400 text-sm sm:text-base md:text-lg mb-6 sm:mb-8 px-2">
               En kısa sürede sizinle iletişime geçeceğiz. Teşekkür ederiz!
             </p>
-            <button 
-              onClick={() => setSuccess(false)}
-              className="bg-accent text-black font-semibold px-6 py-3 sm:px-8 sm:py-4 rounded-xl hover:bg-accent-light transition-all duration-300 transform hover:scale-[1.02] shadow-lg shadow-accent/20 text-sm sm:text-base"
+            <Link 
+              to="/"
+              className="inline-block bg-accent text-black font-semibold px-6 py-3 sm:px-8 sm:py-4 rounded-xl hover:bg-accent-light transition-all duration-300 transform hover:scale-[1.02] shadow-lg shadow-accent/20 text-sm sm:text-base"
             >
-              Yeni Randevu
-            </button>
+              Anasayfaya Dön
+            </Link>
           </div>
         </div>
       </section>
