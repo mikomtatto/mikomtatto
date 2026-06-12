@@ -288,6 +288,7 @@ const Booking = () => {
                   value={formData.date}
                   onChange={handleChange}
                   required
+                  min={new Date().toISOString().split('T')[0]}
                   className="w-full bg-gray-800/50 border border-gray-700 rounded-xl px-2 sm:px-4 py-2 sm:py-3 text-white focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/20 transition-all text-xs sm:text-base"
                 />
               </div>
