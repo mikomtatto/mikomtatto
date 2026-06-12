@@ -106,7 +106,7 @@ const AdminPanel = () => {
       } else if (type === 'styles') {
         endpoint = `${API_URL}/api/styles/${id}/`
       } else if (type === 'comments') {
-        endpoint = `${API_URL}/api/gallery/comments/${id}/`
+        endpoint = `${API_URL}/api/gallery/comments/?id=${id}`
       } else {
         endpoint = `${API_URL}/api/${type}/${id}/`
       }
@@ -659,6 +659,9 @@ const AdminPanel = () => {
                             {style.is_active ? '✓ Aktif' : '✗ Pasif'}
                           </span>
                         </div>
+                        {style.image_url && (
+                          <img src={style.image_url} alt={style.name} className="w-full h-48 object-cover rounded-lg mb-3" />
+                        )}
                         {style.price_range && (
                           <p className="text-accent font-semibold mb-3">{style.price_range}</p>
                         )}
