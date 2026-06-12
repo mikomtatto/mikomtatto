@@ -129,9 +129,37 @@ const Booking = () => {
     setLoading(true)
     setError('')
 
+    // Validate date/time is not in the past
+    const selectedDateTime = new Date(`${formData.date}T${formData.time}`)
+    const now = new Date()
+    if (selectedDateTime < now) {
+      setError('Randevu tarihi ve saati geçmişte olamaz. Lütfen gelecekte bir tarih seçin.')
+      setLoading(false)
+      return
+    }
+
+    // Spam prevention: Check if user has booked recently
+    const lastBookingTime = localStorage.getItem('last_booking_time')
+    const COOLDOWN_MINUTES = 10
+    
+    if (lastBookingTime) {
+      const timeDiff = Date.now() - parseInt(lastBookingTime)
+      const minutesDiff = timeDiff / (1000 * 60)
+      
+      if (minutesDiff < COOLDOWN_MINUTES) {
+        setError(`Randevu almak için ${Math.ceil(COOLDOWN_MINUTES - minutesDiff)} dakika beklemelisiniz.`)
+        setLoading(false)
+        return
+      }
+    }
+
     try {
       const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000'
       await axios.post(`${API_URL}/api/appointments/`, formData)
+      
+      // Store booking time for spam prevention
+      localStorage.setItem('last_booking_time', Date.now().toString())
+      
       setSuccess(true)
       setFormData({
         name: '',
