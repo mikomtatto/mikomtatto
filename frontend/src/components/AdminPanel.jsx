@@ -129,34 +129,45 @@ const AdminPanel = () => {
         endpoint = `${API_URL}/api/styles/`
       }
       
-      const formData = new FormData()
       if (type === 'gallery') {
+        const formData = new FormData()
         formData.append('title', addFormData.title)
         formData.append('image', addFormData.image)
         if (addFormData.style) formData.append('style', addFormData.style)
         if (addFormData.description) formData.append('description', addFormData.description)
         formData.append('is_featured', addFormData.is_featured || false)
+        
+        await axios.post(endpoint, formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        })
       } else if (type === 'styles') {
+        const formData = new FormData()
         formData.append('name', addFormData.name)
         formData.append('slug', addFormData.slug)
         formData.append('description', addFormData.description)
         if (addFormData.image) formData.append('image', addFormData.image)
         if (addFormData.price_range) formData.append('price_range', addFormData.price_range)
         formData.append('is_active', addFormData.is_active !== undefined ? addFormData.is_active : true)
+        
+        await axios.post(endpoint, formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        })
       }
-      
-      await axios.post(endpoint, formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        }
-      })
       
       setShowAddForm(false)
       setAddFormData({})
       fetchData()
     } catch (error) {
       console.error('Ekleme hatası:', error)
-      alert('Ekleme işlemi başarısız')
+      if (error.response?.data) {
+        alert(`Ekleme hatası: ${JSON.stringify(error.response.data)}`)
+      } else {
+        alert('Ekleme işlemi başarısız')
+      }
     }
   }
 
