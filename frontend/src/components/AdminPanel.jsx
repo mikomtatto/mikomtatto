@@ -10,6 +10,8 @@ const AdminPanel = () => {
   const [data, setData] = useState({})
   const [loading, setLoading] = useState(false)
   const [loginError, setLoginError] = useState('')
+  const [currentPage, setCurrentPage] = useState(1)
+  const itemsPerPage = 30
 
   useEffect(() => {
     const auth = localStorage.getItem('adminAuth')
@@ -53,21 +55,23 @@ const AdminPanel = () => {
     try {
       const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000'
       console.log('AdminPanel fetching from:', API_URL)
-      const [appointments, gallery, styles, about, contact] = await Promise.all([
+      const [appointments, gallery, styles, about, contact, comments] = await Promise.all([
         axios.get(`${API_URL}/api/appointments/`),
         axios.get(`${API_URL}/api/gallery/images/`),
         axios.get(`${API_URL}/api/styles/`),
         axios.get(`${API_URL}/api/site/about/`),
-        axios.get(`${API_URL}/api/site/contact/`)
+        axios.get(`${API_URL}/api/site/contact/`),
+        axios.get(`${API_URL}/api/gallery/comments/`)
       ])
       
       console.log('Gallery data:', gallery.data)
       setData({
-        appointments: appointments.data,
+        appointments: appointments.data.sort((a, b) => new Date(b.created_at) - new Date(a.created_at)),
         gallery: gallery.data,
         styles: styles.data,
         about: about.data,
-        contact: contact.data
+        contact: contact.data,
+        comments: comments.data.sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
       })
     } catch (error) {
       console.error('Veriler yüklenirken hata:', error)
@@ -175,6 +179,7 @@ const AdminPanel = () => {
 
   const tabs = [
     { id: 'appointments', label: 'Randevular', icon: '📅' },
+    { id: 'comments', label: 'Yorumlar', icon: '💬' },
     { id: 'gallery', label: 'Galeri', icon: '📷' },
     { id: 'styles', label: 'Stiller', icon: '🎨' },
     { id: 'hero', label: 'Hero Arka Plan', icon: '🖼️' },
@@ -237,49 +242,116 @@ const AdminPanel = () => {
                     <p className="text-gray-400 text-xl">Henüz randevu yok.</p>
                   </div>
                 ) : (
-                  <div className="space-y-4">
-                    {data.appointments?.map(appointment => (
-                      <div key={appointment.id} className="bg-gray-800/50 border border-gray-700 rounded-xl p-5 hover:border-accent/50 transition-all">
-                        <div className="flex flex-col md:flex-row justify-between items-start gap-4 mb-4">
-                          <div className="flex-1">
-                            <h3 className="font-semibold text-xl text-white mb-2">{appointment.name}</h3>
-                            <div className="flex flex-wrap gap-4 text-gray-400 text-sm">
-                              <span className="flex items-center gap-1">📞 {appointment.phone}</span>
-                              <span className="flex items-center gap-1">✉️ {appointment.email}</span>
+                  <>
+                    <div className="space-y-4">
+                      {data.appointments
+                        .slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)
+                        .map(appointment => (
+                          <div key={appointment.id} className="bg-gray-800/50 border border-gray-700 rounded-xl p-5 hover:border-accent/50 transition-all">
+                            <div className="flex flex-col md:flex-row justify-between items-start gap-4 mb-4">
+                              <div className="flex-1">
+                                <h3 className="font-semibold text-xl text-white mb-2">{appointment.name}</h3>
+                                <div className="flex flex-wrap gap-4 text-gray-400 text-sm">
+                                  <span className="flex items-center gap-1">📞 {appointment.phone}</span>
+                                  <span className="flex items-center gap-1">✉️ {appointment.email}</span>
+                                </div>
+                              </div>
+                              <select
+                                value={appointment.status}
+                                onChange={(e) => updateAppointmentStatus(appointment.id, e.target.value)}
+                                className={`px-4 py-2 rounded-lg border font-medium ${getStatusColor(appointment.status)} focus:outline-none focus:ring-2 focus:ring-accent/20`}
+                              >
+                                <option value="pending">Beklemede</option>
+                                <option value="confirmed">Onaylandı</option>
+                                <option value="completed">Tamamlandı</option>
+                                <option value="cancelled">İptal Edildi</option>
+                              </select>
                             </div>
+                            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm mb-3">
+                              <div className="bg-gray-900/50 rounded-lg p-3">
+                                <span className="text-gray-500 block mb-1">Randevu Tarihi</span>
+                                <span className="text-white font-medium">{appointment.date}</span>
+                              </div>
+                              <div className="bg-gray-900/50 rounded-lg p-3">
+                                <span className="text-gray-500 block mb-1">Saat</span>
+                                <span className="text-white font-medium">{appointment.time}</span>
+                              </div>
+                              <div className="bg-gray-900/50 rounded-lg p-3">
+                                <span className="text-gray-500 block mb-1">Oluşturulma Tarihi</span>
+                                <span className="text-white font-medium">{new Date(appointment.created_at).toLocaleDateString('tr-TR')}</span>
+                              </div>
+                              {appointment.style_name && (
+                                <div className="bg-gray-900/50 rounded-lg p-3">
+                                  <span className="text-gray-500 block mb-1">Stil</span>
+                                  <span className="text-accent font-medium">{appointment.style_name}</span>
+                                </div>
+                              )}
+                            </div>
+                            <p className="text-gray-400 bg-gray-900/30 rounded-lg p-3">{appointment.description}</p>
                           </div>
-                          <select
-                            value={appointment.status}
-                            onChange={(e) => updateAppointmentStatus(appointment.id, e.target.value)}
-                            className={`px-4 py-2 rounded-lg border font-medium ${getStatusColor(appointment.status)} focus:outline-none focus:ring-2 focus:ring-accent/20`}
+                        ))}
+                    </div>
+                    {data.appointments.length > itemsPerPage && (
+                      <div className="flex justify-center gap-2 mt-6">
+                        {Array.from({ length: Math.ceil(data.appointments.length / itemsPerPage) }, (_, i) => (
+                          <button
+                            key={i + 1}
+                            onClick={() => setCurrentPage(i + 1)}
+                            className={`px-4 py-2 rounded-lg font-medium transition-all ${
+                              currentPage === i + 1
+                                ? 'bg-accent text-black'
+                                : 'bg-gray-800 text-gray-300 hover:bg-gray-700'
+                            }`}
                           >
-                            <option value="pending">Beklemede</option>
-                            <option value="confirmed">Onaylandı</option>
-                            <option value="completed">Tamamlandı</option>
-                            <option value="cancelled">İptal Edildi</option>
-                          </select>
-                        </div>
-                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm mb-3">
-                          <div className="bg-gray-900/50 rounded-lg p-3">
-                            <span className="text-gray-500 block mb-1">Tarih</span>
-                            <span className="text-white font-medium">{appointment.date}</span>
-                          </div>
-                          <div className="bg-gray-900/50 rounded-lg p-3">
-                            <span className="text-gray-500 block mb-1">Saat</span>
-                            <span className="text-white font-medium">{appointment.time}</span>
-                          </div>
-                          {appointment.style_name && (
-                            <div className="bg-gray-900/50 rounded-lg p-3">
-                              <span className="text-gray-500 block mb-1">Stil</span>
-                              <span className="text-accent font-medium">{appointment.style_name}</span>
+                            {i + 1}
+                          </button>
+                        ))}
+                      </div>
+                    )}
+                  </>
+                )}
+              </div>
+            )}
+
+            {activeTab === 'comments' && (
+              <div>
+                <div className="flex justify-between items-center mb-6">
+                  <h2 className="font-display text-2xl font-bold">Yorumlar</h2>
+                  <span className="bg-accent/20 text-accent px-3 py-1 rounded-full text-sm font-semibold">
+                    {data.comments?.length || 0} toplam
+                  </span>
+                </div>
+                {data.comments?.length === 0 ? (
+                  <div className="text-center py-20">
+                    <div className="text-6xl mb-4">💬</div>
+                    <p className="text-gray-400 text-xl">Henüz yorum yok.</p>
+                  </div>
+                ) : (
+                  <div className="space-y-4">
+                    {data.comments?.map(comment => (
+                      <div key={comment.id} className="bg-gray-800/50 border border-gray-700 rounded-xl p-5 hover:border-accent/50 transition-all">
+                        <div className="flex justify-between items-start mb-3">
+                          <div>
+                            <h3 className="font-semibold text-lg text-white">
+                              {comment.is_anonymous ? 'Anonim' : comment.name}
+                            </h3>
+                            <div className="flex items-center gap-2 text-sm text-gray-400 mt-1">
+                              <span className="text-accent">{'★'.repeat(comment.rating)}</span>
+                              <span>•</span>
+                              <span>{new Date(comment.created_at).toLocaleDateString('tr-TR', {
+                                year: 'numeric',
+                                month: 'long',
+                                day: 'numeric',
+                                hour: '2-digit',
+                                minute: '2-digit'
+                              })}</span>
                             </div>
-                          )}
-                          <div className={`bg-gray-900/50 rounded-lg p-3 ${getStatusColor(appointment.status)}`}>
-                            <span className="text-gray-500 block mb-1">Durum</span>
-                            <span className="font-medium">{getStatusLabel(appointment.status)}</span>
                           </div>
+                          <span className="text-xs text-gray-500 bg-gray-900/50 px-3 py-1 rounded-full">
+                            {comment.content_type === 'galleryimage' ? 'Galeri' : comment.content_type === 'tattoostyle' ? 'Stil' : comment.content_type}
+                          </span>
                         </div>
-                        <p className="text-gray-400 bg-gray-900/30 rounded-lg p-3">{appointment.description}</p>
+                        <p className="text-gray-300 whitespace-pre-line bg-gray-900/30 rounded-lg p-3">{comment.text}</p>
                       </div>
                     ))}
                   </div>
