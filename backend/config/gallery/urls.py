@@ -8,4 +8,5 @@ router.register(r'images', GalleryImageViewSet, basename='galleryimage')
 urlpatterns = [
     path('', include(router.urls)),
     path('comments/', comment_list),
+    path('comments/<int:pk>/', comment_list),
 ]

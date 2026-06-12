@@ -106,7 +106,7 @@ const AdminPanel = () => {
       } else if (type === 'styles') {
         endpoint = `${API_URL}/api/styles/${id}/`
       } else if (type === 'comments') {
-        endpoint = `${API_URL}/api/gallery/comments/?id=${id}`
+        endpoint = `${API_URL}/api/gallery/comments/${id}/`
       } else {
         endpoint = `${API_URL}/api/${type}/${id}/`
       }
