@@ -171,6 +171,15 @@ const AdminPanel = () => {
     }
   }
 
+  const generateSlug = (text) => {
+    return text
+      .toLowerCase()
+      .trim()
+      .replace(/[^\w\s-]/g, '')
+      .replace(/[\s_-]+/g, '-')
+      .replace(/^-+|-+$/g, '')
+  }
+
   const getStatusColor = (status) => {
     switch(status) {
       case 'pending': return 'bg-yellow-500/20 text-yellow-400 border-yellow-500/30'
@@ -585,7 +594,9 @@ const AdminPanel = () => {
                         <input
                           type="text"
                           value={addFormData.name || ''}
-                          onChange={(e) => setAddFormData({ ...addFormData, name: e.target.value })}
+                          onChange={(e) => {
+                            setAddFormData({ ...addFormData, name: e.target.value, slug: generateSlug(e.target.value) })
+                          }}
                           className="w-full bg-gray-900/50 border border-gray-700 rounded-xl px-4 py-3 text-white"
                           required
                         />
