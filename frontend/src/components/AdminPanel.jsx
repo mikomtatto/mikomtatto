@@ -12,6 +12,8 @@ const AdminPanel = () => {
   const [loginError, setLoginError] = useState('')
   const [currentPage, setCurrentPage] = useState(1)
   const itemsPerPage = 30
+  const [showAddForm, setShowAddForm] = useState(false)
+  const [addFormData, setAddFormData] = useState({})
 
   useEffect(() => {
     const auth = localStorage.getItem('adminAuth')
@@ -98,12 +100,63 @@ const AdminPanel = () => {
     
     try {
       const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000'
-      const endpoint = type === 'gallery' ? `${API_URL}/api/gallery/images/${id}/` : `${API_URL}/api/${type}/${id}/`
+      let endpoint
+      if (type === 'gallery') {
+        endpoint = `${API_URL}/api/gallery/images/${id}/`
+      } else if (type === 'styles') {
+        endpoint = `${API_URL}/api/styles/${id}/`
+      } else if (type === 'comments') {
+        endpoint = `${API_URL}/api/gallery/comments/${id}/`
+      } else {
+        endpoint = `${API_URL}/api/${type}/${id}/`
+      }
       await axios.delete(endpoint)
       fetchData()
     } catch (error) {
       console.error('Silme hatası:', error)
       alert('Silme işlemi başarısız')
+    }
+  }
+
+  const handleAddItem = async (e, type) => {
+    e.preventDefault()
+    try {
+      const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000'
+      let endpoint
+      if (type === 'gallery') {
+        endpoint = `${API_URL}/api/gallery/images/`
+      } else if (type === 'styles') {
+        endpoint = `${API_URL}/api/styles/`
+      }
+      
+      const formData = new FormData()
+      if (type === 'gallery') {
+        formData.append('title', addFormData.title)
+        formData.append('image', addFormData.image)
+        if (addFormData.style) formData.append('style', addFormData.style)
+        if (addFormData.description) formData.append('description', addFormData.description)
+        formData.append('is_featured', addFormData.is_featured || false)
+      } else if (type === 'styles') {
+        formData.append('name', addFormData.name)
+        formData.append('slug', addFormData.slug)
+        formData.append('description', addFormData.description)
+        if (addFormData.image) formData.append('image', addFormData.image)
+        if (addFormData.price_range) formData.append('price_range', addFormData.price_range)
+        formData.append('is_active', addFormData.is_active !== undefined ? addFormData.is_active : true)
+      }
+      
+      await axios.post(endpoint, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      })
+      
+      setShowAddForm(false)
+      setAddFormData({})
+      fetchData()
+    } catch (error) {
+      console.error('Ekleme hatası:', error)
+      alert('Ekleme işlemi başarısız')
     }
   }
 
@@ -347,9 +400,17 @@ const AdminPanel = () => {
                               })}</span>
                             </div>
                           </div>
-                          <span className="text-xs text-gray-500 bg-gray-900/50 px-3 py-1 rounded-full">
-                            {comment.content_type === 'galleryimage' ? 'Galeri' : comment.content_type === 'tattoostyle' ? 'Stil' : comment.content_type}
-                          </span>
+                          <div className="flex items-center gap-2">
+                            <span className="text-xs text-gray-500 bg-gray-900/50 px-3 py-1 rounded-full">
+                              {comment.content_type === 'galleryimage' ? 'Galeri' : comment.content_type === 'tattoostyle' ? 'Stil' : comment.content_type}
+                            </span>
+                            <button
+                              onClick={() => deleteItem('comments', comment.id)}
+                              className="text-red-400 hover:text-red-300 text-sm font-medium flex items-center gap-1"
+                            >
+                              🗑️ Sil
+                            </button>
+                          </div>
                         </div>
                         <p className="text-gray-300 whitespace-pre-line bg-gray-900/30 rounded-lg p-3">{comment.text}</p>
                       </div>
@@ -363,10 +424,90 @@ const AdminPanel = () => {
               <div>
                 <div className="flex justify-between items-center mb-6">
                   <h2 className="font-display text-2xl font-bold">Galeri</h2>
-                  <a href={`${import.meta.env.VITE_API_URL || 'http://localhost:8000'}/admin/`} target="_blank" rel="noopener noreferrer" className="text-accent hover:underline text-sm flex items-center gap-1">
-                    Yönetmek için Django admin →
-                  </a>
+                  <div className="flex gap-3">
+                    <button
+                      onClick={() => setShowAddForm(!showAddForm)}
+                      className="bg-accent text-black font-semibold px-4 py-2 rounded-xl hover:bg-accent-light transition-all"
+                    >
+                      {showAddForm ? 'Formu Kapat' : '+ Fotoğraf Ekle'}
+                    </button>
+                    <a href={`${import.meta.env.VITE_API_URL || 'http://localhost:8000'}/admin/`} target="_blank" rel="noopener noreferrer" className="text-accent hover:underline text-sm flex items-center gap-1">
+                      Yönetmek için Django admin →
+                    </a>
+                  </div>
                 </div>
+
+                {showAddForm && (
+                  <div className="bg-gray-800/50 border border-gray-700 rounded-xl p-6 mb-6">
+                    <h3 className="font-semibold text-lg mb-4">Yeni Fotoğraf Ekle</h3>
+                    <form onSubmit={(e) => handleAddItem(e, 'gallery')} className="space-y-4">
+                      <div>
+                        <label className="block text-gray-300 mb-2">Başlık *</label>
+                        <input
+                          type="text"
+                          value={addFormData.title || ''}
+                          onChange={(e) => setAddFormData({ ...addFormData, title: e.target.value })}
+                          className="w-full bg-gray-900/50 border border-gray-700 rounded-xl px-4 py-3 text-white"
+                          required
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-gray-300 mb-2">Görsel *</label>
+                        <input
+                          type="file"
+                          onChange={(e) => setAddFormData({ ...addFormData, image: e.target.files[0] })}
+                          className="w-full bg-gray-900/50 border border-gray-700 rounded-xl px-4 py-3 text-white"
+                          accept="image/*"
+                          required
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-gray-300 mb-2">Stil</label>
+                        <select
+                          value={addFormData.style || ''}
+                          onChange={(e) => setAddFormData({ ...addFormData, style: e.target.value })}
+                          className="w-full bg-gray-900/50 border border-gray-700 rounded-xl px-4 py-3 text-white"
+                        >
+                          <option value="">Stil Seçin</option>
+                          {data.styles?.map(style => (
+                            <option key={style.id} value={style.id}>{style.name}</option>
+                          ))}
+                        </select>
+                      </div>
+                      <div>
+                        <label className="block text-gray-300 mb-2">Açıklama</label>
+                        <textarea
+                          value={addFormData.description || ''}
+                          onChange={(e) => setAddFormData({ ...addFormData, description: e.target.value })}
+                          className="w-full bg-gray-900/50 border border-gray-700 rounded-xl px-4 py-3 text-white"
+                          rows={3}
+                        />
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <input
+                          type="checkbox"
+                          checked={addFormData.is_featured || false}
+                          onChange={(e) => setAddFormData({ ...addFormData, is_featured: e.target.checked })}
+                          className="w-4 h-4 accent-accent"
+                        />
+                        <label className="text-gray-300">Öne Çıkan</label>
+                      </div>
+                      <div className="flex gap-3">
+                        <button type="submit" className="bg-accent text-black font-semibold px-6 py-3 rounded-xl hover:bg-accent-light transition-all">
+                          Ekle
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => setShowAddForm(false)}
+                          className="bg-gray-700 text-white font-semibold px-6 py-3 rounded-xl hover:bg-gray-600 transition-all"
+                        >
+                          İptal
+                        </button>
+                      </div>
+                    </form>
+                  </div>
+                )}
+
                 {data.gallery?.length === 0 ? (
                   <div className="text-center py-20">
                     <div className="text-6xl mb-4">📷</div>
@@ -411,10 +552,98 @@ const AdminPanel = () => {
               <div>
                 <div className="flex justify-between items-center mb-6">
                   <h2 className="font-display text-2xl font-bold">Dövme Stilleri</h2>
-                  <a href={`${import.meta.env.VITE_API_URL || 'http://localhost:8000'}/admin/`} target="_blank" rel="noopener noreferrer" className="text-accent hover:underline text-sm flex items-center gap-1">
-                    Yönetmek için Django admin →
-                  </a>
+                  <div className="flex gap-3">
+                    <button
+                      onClick={() => setShowAddForm(!showAddForm)}
+                      className="bg-accent text-black font-semibold px-4 py-2 rounded-xl hover:bg-accent-light transition-all"
+                    >
+                      {showAddForm ? 'Formu Kapat' : '+ Stil Ekle'}
+                    </button>
+                    <a href={`${import.meta.env.VITE_API_URL || 'http://localhost:8000'}/admin/`} target="_blank" rel="noopener noreferrer" className="text-accent hover:underline text-sm flex items-center gap-1">
+                      Yönetmek için Django admin →
+                    </a>
+                  </div>
                 </div>
+
+                {showAddForm && (
+                  <div className="bg-gray-800/50 border border-gray-700 rounded-xl p-6 mb-6">
+                    <h3 className="font-semibold text-lg mb-4">Yeni Stil Ekle</h3>
+                    <form onSubmit={(e) => handleAddItem(e, 'styles')} className="space-y-4">
+                      <div>
+                        <label className="block text-gray-300 mb-2">Stil Adı *</label>
+                        <input
+                          type="text"
+                          value={addFormData.name || ''}
+                          onChange={(e) => setAddFormData({ ...addFormData, name: e.target.value })}
+                          className="w-full bg-gray-900/50 border border-gray-700 rounded-xl px-4 py-3 text-white"
+                          required
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-gray-300 mb-2">Slug *</label>
+                        <input
+                          type="text"
+                          value={addFormData.slug || ''}
+                          onChange={(e) => setAddFormData({ ...addFormData, slug: e.target.value })}
+                          className="w-full bg-gray-900/50 border border-gray-700 rounded-xl px-4 py-3 text-white"
+                          placeholder="ornek-stil-adi"
+                          required
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-gray-300 mb-2">Açıklama *</label>
+                        <textarea
+                          value={addFormData.description || ''}
+                          onChange={(e) => setAddFormData({ ...addFormData, description: e.target.value })}
+                          className="w-full bg-gray-900/50 border border-gray-700 rounded-xl px-4 py-3 text-white"
+                          rows={3}
+                          required
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-gray-300 mb-2">Görsel</label>
+                        <input
+                          type="file"
+                          onChange={(e) => setAddFormData({ ...addFormData, image: e.target.files[0] })}
+                          className="w-full bg-gray-900/50 border border-gray-700 rounded-xl px-4 py-3 text-white"
+                          accept="image/*"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-gray-300 mb-2">Fiyat Aralığı</label>
+                        <input
+                          type="text"
+                          value={addFormData.price_range || ''}
+                          onChange={(e) => setAddFormData({ ...addFormData, price_range: e.target.value })}
+                          className="w-full bg-gray-900/50 border border-gray-700 rounded-xl px-4 py-3 text-white"
+                          placeholder="₺1000 - ₺3000"
+                        />
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <input
+                          type="checkbox"
+                          checked={addFormData.is_active !== undefined ? addFormData.is_active : true}
+                          onChange={(e) => setAddFormData({ ...addFormData, is_active: e.target.checked })}
+                          className="w-4 h-4 accent-accent"
+                        />
+                        <label className="text-gray-300">Aktif</label>
+                      </div>
+                      <div className="flex gap-3">
+                        <button type="submit" className="bg-accent text-black font-semibold px-6 py-3 rounded-xl hover:bg-accent-light transition-all">
+                          Ekle
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => setShowAddForm(false)}
+                          className="bg-gray-700 text-white font-semibold px-6 py-3 rounded-xl hover:bg-gray-600 transition-all"
+                        >
+                          İptal
+                        </button>
+                      </div>
+                    </form>
+                  </div>
+                )}
+
                 {data.styles?.length === 0 ? (
                   <div className="text-center py-20">
                     <div className="text-6xl mb-4">🎨</div>
